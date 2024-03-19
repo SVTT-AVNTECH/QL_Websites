@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('table_avn_website_costs', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('website_id');
             $table->date('date');
             $table->text('title');
             $table->string('price');
             $table->string('type');
-            $table->foreign('id')->references('id')->on('table_avn_websites')->onDelete('cascade')->onUpdate('cascade');
-
+            $table->foreign('website_id')->references('id')->on('table_avn_websites')->onDelete('cascade')->onUpdate('cascade');
+            $table->timestamps();
         });
     }
 

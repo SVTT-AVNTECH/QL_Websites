@@ -16,11 +16,15 @@ return new class extends Migration
             $table->text('url');
             $table->date('domain_date_register');
             $table->date('domain_date_expried');
-            $table->text('domain_info');
+            $table->text('domain_info')->nullable();
             $table->date('hosting_date_register');
             $table->date('hosting_date_expried');
-            $table->text('hosting_info');
-            $table->text('note');
+            $table->text('hosting_info')->nullable();
+            $table->text('note')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
+            $table->timestamps();
+     
         });
     }
 

@@ -28,9 +28,13 @@ class AvnWebsiteController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function insert(Request $request): RedirectResponse
     {
-        //
+        $request->validate([
+            'price' => 'required|int',
+        ]);
+
+        $AvnWebsite = new $AvnWebsite();
     }
 
     /**
