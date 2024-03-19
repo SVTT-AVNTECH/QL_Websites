@@ -1,0 +1,31 @@
+{
+    "name": "nwidart/avnwebsite",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\AvnWebsite\\": "",
+            "Modules\\AvnWebsite\\App\\": "app/",
+            "Modules\\AvnWebsite\\Database\\Factories\\": "database/factories/",
+            "Modules\\AvnWebsite\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\AvnWebsite\\Tests\\": "tests/"
+        }
+    }
+}

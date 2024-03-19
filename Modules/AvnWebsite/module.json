@@ -1,0 +1,11 @@
+{
+    "name": "AvnWebsite",
+    "alias": "avnwebsite",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\AvnWebsite\\App\\Providers\\AvnWebsiteServiceProvider"
+    ],
+    "files": []
+}
