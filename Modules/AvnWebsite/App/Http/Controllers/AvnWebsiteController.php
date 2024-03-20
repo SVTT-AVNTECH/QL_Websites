@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Modules\AvnWebsite\App\Models\AvnWebsites;
+use Modules\AvnWebsite\App\Models\AvnWebsiteCost;
 
 class AvnWebsiteController extends Controller
 {
@@ -14,7 +16,9 @@ class AvnWebsiteController extends Controller
      */
     public function index()
     {
-        return view('avnwebsite::index');
+        // return view('avnwebsite::index');
+        $websites = AvnWebsites::get();
+        return view('avnwebsite::index', ['websites' => $websites]);
     }
 
     /**
@@ -22,7 +26,7 @@ class AvnWebsiteController extends Controller
      */
     public function create()
     {
-        return view('avnwebsite::create');
+        return view('avnwebsite::insert');
     }
 
     /**
@@ -34,7 +38,10 @@ class AvnWebsiteController extends Controller
             'price' => 'required|int',
         ]);
 
-        $AvnWebsite = new $AvnWebsite();
+        $avnwebsite = new AvnWebsites();
+        $avnwebsite->url;
+        $avnwebsite->domain_date_register;
+        $avnwebsite->domain_date_expried;
     }
 
     /**
