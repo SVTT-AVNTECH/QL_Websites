@@ -21,10 +21,10 @@ use Modules\AvnWebsite\App\Http\Controllers\AvnWebsiteController;
 // Route::get('/g', function () {
 //     return view('avnwebsite::index');
 // });
-Route::prefix('')->group(function () {
+Route::prefix('')->middleware('auth')->group(function () {
     Route::get('/', [AvnWebsiteController::class, 'index'])->name('AvnWebsite.index');
     Route::get('/create', [AvnWebsiteController::class, 'create'])->name('AvnWebsite.create');
-    Route::post('/insert', [AvnWebsiteController::class, 'insert'])->name('AvnWebsite.insert');
+    Route::post('/insert', [AvnWebsiteController::class, 'insert'])->name('AvnWebsite.insert_domain');
     Route::get('edit/{id}', [AvnWebsiteController::class, 'edit'])->name('AvnWebsite.edit');
     Route::put('update/{id}', [AvnWebsiteController::class, 'update'])->name('AvnWebsite.update');
     Route::delete('/delete', [AvnWebsiteController::class, 'delete'])->name('AvnWebsite.delete');

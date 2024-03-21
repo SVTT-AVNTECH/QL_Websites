@@ -32,16 +32,33 @@ class AvnWebsiteController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function insert(Request $request): RedirectResponse
+    public function insert(Request $request)
     {
-        $request->validate([
-            'price' => 'required|int',
-        ]);
-
+        // $request->validate([
+        //     'price' => 'required|numeric',
+        // ]);
         $avnwebsite = new AvnWebsites();
-        $avnwebsite->url;
-        $avnwebsite->domain_date_register;
-        $avnwebsite->domain_date_expried;
+        $avnwebsite->url = $request->url;
+        $avnwebsite->domain_date_register = $request->domain_date_register;
+        $avnwebsite->domain_date_expried = $request->domain_date_expried;
+        $avnwebsite->hosting_date_register = $request->hosting_date_register;
+        $avnwebsite->hosting_date_expried = $request->hosting_date_expried;
+        $avnwebsite->hosting_info = $request->type_hosting;
+        $avnwebsite->domain_info = $request->domain_info;
+        $avnwebsite->note = $request->note;
+        $avnwebsite->save();
+
+        $cost = new AvnWebsiteCost();
+        $cost->date = $request->date_domain;
+        $cost->title = $request->title_domain;
+        $cost->price = $request->price_domain;
+        $cost->date = $request->date_hosting;
+        $cost->title = $request->title_hosting;
+        $cost->price = $request->price_hosting;
+        $cost->type = $request->type;
+        $cost->website_id = $avnwebsite->id;
+        $cost->save();
+        return redirect('/');
     }
 
     /**
