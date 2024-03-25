@@ -63,7 +63,7 @@ class AvnWebsiteController extends Controller
                 $cost->save();
             }
         }
-        return redirect('/');
+        return redirect('/website');
     }
 
     /**
@@ -86,16 +86,42 @@ class AvnWebsiteController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id): RedirectResponse
+    public function update(Request $request, $id)
     {
-        //
+        $avnwebsite = AvnWebsites::findOrFail($id);
+        $avnwebsite->url =$request->url;
+        $avnwebsite->domain_date_register =$request->domain_date_register;
+        $avnwebsite->domain_date_expried =$request->domain_date_expried;
+        $avnwebsite->domain_info =$request->domain_info;
+        foreach ($avnwebsite->domain_costs as $index => $item) {
+            $item->date = $request->input('ngay_'. ($index+1));
+            $item->title = $request->input('noidung_'. ($index+1));
+            $item->price = $request->input('chiphi_'. ($index+1));
+            $item->save();
+        }
+        $avnwebsite->hosting_date_register =$request->hosting_date_register;
+        $avnwebsite->hosting_date_expried =$request->hosting_date_expried;
+        $avnwebsite->hosting_info =$request->hosting_info;
+        $avnwebsite->note =$request->note;
+        $avnwebsite->save();
+        foreach ($avnwebsite->hosting_costs as $index => $item) {
+            $item->date = $request->input('date_'. ($index+1));
+            $item->title = $request->input('title_'. ($index+1));
+            $item->price = $request->input('price_'. ($index+1));
+            $item->save();
+        }
+
+
+        return redirect('/website');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        //
+        $avnWebsite = AvnWebsites::findOrFail($id);
+        $avnWebsite->delete();
+        return redirect('/website');
     }
 }

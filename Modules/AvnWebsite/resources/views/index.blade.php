@@ -12,7 +12,8 @@
                 <th colspan="6">Tên miền</th>
                 <th colspan="6">Hosting</th>
                 <th rowspan="3">Ghi chú</th>
-                <th rowspan="3">control</th>
+                <th rowspan="3">edit</th>
+                <th rowspan="3">delete</th>
 
             </tr>
             <tr>
@@ -66,13 +67,20 @@
                         <td>{{ $hosting_cost ? $hosting_cost->price : '' }}</td>
                         <td class="url">{{ $website->hosting_info }}</td>
                         <td class="url">{{ $website->note }}</td>
-                        <td><a href="{{ url('edit', ['id' => $website->id]) }}">edit</a></td>
+
+                        <td class="url"><button><a href="{{ url('website/edit', ['id' => $website->id]) }}">edit</a></button></td>
+                        <td class="url"><form action="{{ url('website/delete', ['id' => $website->id]) }}"
+                            method="post">
+                            @csrf
+                            @method('delete')
+                            <button type="submit">delete</button>
+                        </form></td>
                     </tr>
                 @endfor
             @endforeach
         </tbody>
     </table>
-    <a href="{{ url('create') }}">insert</a>
+    <a href="{{ url('website/create') }}">insert</a>
     <script>
         document.querySelectorAll('[data-id]').forEach(function(element) {
             var dataId = element.getAttribute('data-id');

@@ -25,7 +25,7 @@ Route::prefix('website')->middleware('auth')->group(function () {
     Route::get('/', [AvnWebsiteController::class, 'index'])->name('AvnWebsite.index');
     Route::get('/create', [AvnWebsiteController::class, 'create'])->name('AvnWebsite.create');
     Route::post('/insert', [AvnWebsiteController::class, 'insert'])->name('AvnWebsite.insert');
-    Route::get('edit/{id}', [AvnWebsiteController::class, 'edit'])->name('AvnWebsite.edit');
+    Route::get('/edit/{id}', [AvnWebsiteController::class, 'edit'])->name('AvnWebsite.edit');
     Route::put('update/{id}', [AvnWebsiteController::class, 'update'])->name('AvnWebsite.update');
-    Route::delete('/delete', [AvnWebsiteController::class, 'delete'])->name('AvnWebsite.delete');
+    Route::delete('/delete/{id}', [AvnWebsiteController::class, 'delete'])->name('AvnWebsite.delete');
 });
