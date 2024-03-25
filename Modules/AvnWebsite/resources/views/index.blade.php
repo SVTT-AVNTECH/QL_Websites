@@ -12,6 +12,8 @@
                 <th colspan="6">Tên miền</th>
                 <th colspan="6">Hosting</th>
                 <th rowspan="3">Ghi chú</th>
+                <th rowspan="3">control</th>
+
             </tr>
             <tr>
 
@@ -64,6 +66,7 @@
                         <td>{{ $hosting_cost ? $hosting_cost->price : '' }}</td>
                         <td class="url">{{ $website->hosting_info }}</td>
                         <td class="url">{{ $website->note }}</td>
+                        <td><a href="{{ url('edit', ['id' => $website->id]) }}">edit</a></td>
                     </tr>
                 @endfor
             @endforeach
