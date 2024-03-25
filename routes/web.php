@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,4 +29,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+Route::get('redirect/{driver}', [AuthenticatedSessionController::class, 'redirectToProvider'])
+    ->name('login.redirect');
+// ->where('driver', implode('|', config('auth.socialite.drivers')));
+
+Route::get('callback/{driver}', [AuthenticatedSessionController::class, 'handleProviderCallback'])
+    ->name('login.callback');
+
+
+require __DIR__ . '/auth.php';
