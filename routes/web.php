@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
-|--------------------------------------------------------------------------
+|----------------------------------------------------------m----------------
 |
 | Here is where you can registexcr web routes for your application. These
 | routes are loaded by the RouteServiceProvider and all of them will
