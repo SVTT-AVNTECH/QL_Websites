@@ -37,27 +37,32 @@ class AvnWebsiteController extends Controller
         // $request->validate([
         //     'price' => 'required|numeric',
         // ]);
+
         $avnwebsite = new AvnWebsites();
         $avnwebsite->url = $request->url;
         $avnwebsite->domain_date_register = $request->domain_date_register;
         $avnwebsite->domain_date_expried = $request->domain_date_expried;
         $avnwebsite->hosting_date_register = $request->hosting_date_register;
         $avnwebsite->hosting_date_expried = $request->hosting_date_expried;
-        $avnwebsite->hosting_info = $request->type_hosting;
+        $avnwebsite->hosting_info = $request->hosting_info;
         $avnwebsite->domain_info = $request->domain_info;
         $avnwebsite->note = $request->note;
         $avnwebsite->save();
 
-        $cost = new AvnWebsiteCost();
-        $cost->date = $request->date_domain;
-        $cost->title = $request->title_domain;
-        $cost->price = $request->price_domain;
-        $cost->date = $request->date_hosting;
-        $cost->title = $request->title_hosting;
-        $cost->price = $request->price_hosting;
-        $cost->type = $request->type;
-        $cost->website_id = $avnwebsite->id;
-        $cost->save();
+        foreach ($request->cost['date'] ?? [] as $key => $date) {
+            if (isset($request->cost['date'][$key])) {
+                $cost = new AvnWebsiteCost();
+                $cost->date = $request->cost['date'][$key];
+                $cost->title = $request->cost['title'][$key];
+                $cost->price = $request->cost['price'][$key];
+                // $cost->date = $request->date_hosting;
+                // $cost->title = $request->title_hosting;
+                // $cost->price = $request->price_hosting;
+                $cost->type = $request->cost['type'][$key];
+                $cost->website_id = $avnwebsite->id;
+                $cost->save();
+            }
+        }
         return redirect('/');
     }
 
@@ -74,7 +79,8 @@ class AvnWebsiteController extends Controller
      */
     public function edit($id)
     {
-        return view('avnwebsite::edit');
+        $website = AvnWebsites::findOrFail($id);
+        return view('avnwebsite::edit', compact('website'));
     }
 
     /**

@@ -24,7 +24,7 @@ use Modules\AvnWebsite\App\Http\Controllers\AvnWebsiteController;
 Route::prefix('')->middleware('auth')->group(function () {
     Route::get('/', [AvnWebsiteController::class, 'index'])->name('AvnWebsite.index');
     Route::get('/create', [AvnWebsiteController::class, 'create'])->name('AvnWebsite.create');
-    Route::post('/insert', [AvnWebsiteController::class, 'insert'])->name('AvnWebsite.insert_domain');
+    Route::post('/insert', [AvnWebsiteController::class, 'insert'])->name('AvnWebsite.insert');
     Route::get('edit/{id}', [AvnWebsiteController::class, 'edit'])->name('AvnWebsite.edit');
     Route::put('update/{id}', [AvnWebsiteController::class, 'update'])->name('AvnWebsite.update');
     Route::delete('/delete', [AvnWebsiteController::class, 'delete'])->name('AvnWebsite.delete');
