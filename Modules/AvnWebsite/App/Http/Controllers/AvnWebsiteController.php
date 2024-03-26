@@ -55,9 +55,6 @@ class AvnWebsiteController extends Controller
                 $cost->date = $request->cost['date'][$key];
                 $cost->title = $request->cost['title'][$key];
                 $cost->price = $request->cost['price'][$key];
-                // $cost->date = $request->date_hosting;
-                // $cost->title = $request->title_hosting;
-                // $cost->price = $request->price_hosting;
                 $cost->type = $request->cost['type'][$key];
                 $cost->website_id = $avnwebsite->id;
                 $cost->save();
@@ -122,6 +119,38 @@ class AvnWebsiteController extends Controller
     {
         $avnWebsite = AvnWebsites::findOrFail($id);
         $avnWebsite->delete();
+        return redirect('/website');
+    }
+
+    public function view($id)
+    {
+        $website = AvnWebsites::findOrFail($id);
+        return view('avnwebsite::view', compact('website'));
+    }
+
+    public function create_price($id)
+    {
+        $website = AvnWebsites::findOrFail($id);
+        return view('avnwebsite::create_price', compact('website'));
+    }
+
+    public function insert_price(Request $request,$id)
+    {
+
+        // $avnwebsite = new AvnWebsites();
+        $avnwebsite = AvnWebsites::findOrFail($id);
+        foreach ($request->cost['date'] ?? [] as $key => $date) {
+            if (isset($request->cost['date'][$key])) {
+                $cost = new AvnWebsiteCost();
+                $cost->date = $request->cost['date'][$key];
+                $cost->title = $request->cost['title'][$key];
+                $cost->price = $request->cost['price'][$key];
+                $cost->type = $request->cost['type'][$key];
+                $cost->website_id = $avnwebsite->id;
+                $cost->save();
+            }
+        }
+
         return redirect('/website');
     }
 }
