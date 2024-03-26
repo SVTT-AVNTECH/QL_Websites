@@ -36,5 +36,7 @@ Route::get('redirect/{driver}', [AuthenticatedSessionController::class, 'redirec
 Route::get('callback/{driver}', [AuthenticatedSessionController::class, 'handleProviderCallback'])
     ->name('login.callback');
 
+Route::get('callback/{driver}', [AuthenticatedSessionController::class, 'gitCallback'])
+    ->name('login.callback');
 
 require __DIR__ . '/auth.php';

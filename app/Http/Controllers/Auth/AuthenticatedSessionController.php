@@ -81,4 +81,34 @@ class AuthenticatedSessionController extends Controller
 
         return redirect()->intended(RouteServiceProvider::HOME);
     }
+
+    public function gitCallback($driver)
+    {
+        try {
+            $user = Socialite::driver($driver)->user();
+        } catch (\Exception $e) {
+            return redirect()->route('login');
+        }
+
+        if (!$user->getEmail()) {
+            return redirect()->route('register')->withErrors(['email' => 'Email is invalid!']);
+        }
+
+        $existingUser = User::where('email', $user->getEmail())->first();
+
+        if ($existingUser) {
+            auth()->login($existingUser, true);
+        } else {
+            $newUser = new User;
+            $newUser->name = $user->getEmail();
+            $newUser->email = $user->getEmail();
+            $newUser->email_verified_at = now();
+            $newUser->avatar = $user->getAvatar();
+            $newUser->save();
+
+            auth()->login($newUser, true);
+        }
+
+        return redirect()->intended(RouteServiceProvider::HOME);
+    }
 }
