@@ -39,11 +39,4 @@ Route::get('callback/{driver}', [AuthenticatedSessionController::class, 'handleP
 Route::get('callback/{driver}', [AuthenticatedSessionController::class, 'gitCallback'])
     ->name('login.callback');
 
-Route::get('/', 'TaskController@index')
-    ->name('index');
-Route::post('/task', 'TaskController@store')
-    ->name('store.task');
-Route::delete('/task/{task}', 'TaskController@delete')
-    ->name('delete.task');
-
 require __DIR__ . '/auth.php';
