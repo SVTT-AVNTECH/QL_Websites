@@ -1,71 +1,91 @@
-<!DOCTYPE html>
-<html lang="en">
+<x-app-layout>
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thêm Hợp Đồng</title>
-    <style>
-        /* CSS for hiding the form initially */
-        .hidden {
-            display: none;
-        }
-    </style>
-</head>
 
-<body>
-    <form action="{{ route('AvnWebsite.insert_price', ['id' => $website->id]) }}" method="post">
-        @csrf
-        <h2>Domain</h2>
-        <button id="showFormDomainButton" type="button">Mua domain</button>
-        <template id="domainFields" class="hidden">
-            <div>
-                <label for="date">Ngày</label>
-                <input type="date" id="date" name="cost[date][]" multiple>
-            </div>
-            <div>
-                <label for="title_domain">Nội dung</label>
-                <input type="text" id="title_domain" name="cost[title][]" multiple>
-            </div>
-            <input type="hidden" id="date" name="cost[type][]" value="domain" multiple>
-            <div>
-                <label for="price_domain">Chi phí domain</label>
-                <input type="text" id="price_domain" name="cost[price][]" multiple>
-            </div>
-        </template>
+                    <!DOCTYPE html>
+                    <html lang="en">
 
-        <button id="showFormHostingButton" type="button">Mua hosting</button>
-        <template id="hostingFields" class="hidden">
-            <div>
-                <label for="date">Ngày</label>
-                <input type="date" id="date" name="cost[date][]" multiple>
-            </div>
-            <div>
-                <label for="title_hosting">Nội dung</label>
-                <input type="text" id="title_hosting" name="cost[title][]" multiple>
-            </div>
-            <input type="hidden" id="date" name="cost[type][]" value="hosting" multiple>
-            <div>
-                <label for="price_hosting">Chi phí hosting</label>
-                <input type="text" id="price_hosting" name="cost[price][]" multiple>
-            </div>
-        </template>
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <title>Thêm Hợp Đồng</title>
+                        <style>
+                            .hidden {
+                                display: none;
 
-        <button type="submit">Thêm</button>
-    </form>
-</body>
+                            }
+                        </style>
+                    </head>
 
-</html>
+                    <body class="bg-gray-700">
+                        <form action="{{ route('AvnWebsite.insert_price', ['id' => $website->id]) }}" method="post"
+                            class="max-w-lg mx-auto mt-8 p-8 bg-zinc-100 shadow-lg rounded-lg">
+                            @csrf
+                            <h2 class="text-xl font-bold mb-4">Cập nhật giá</h2>
+
+                            <button id="showFormDomainButton" type="button"
+                                class="inline-block bg-green-500 hover:bg-green-700 text-white font-bold text-sm px-4 py-2 rounded-lg mr-2">Mua
+                                domain</button>
+                            <template id="domainFields" class="hidden">
+                                <div class="mt-4">
+                                    <label for="date" class="block text-sm font-medium text-gray-700">Ngày</label>
+                                    <input type="date" id="date" name="cost[date][]"
+                                        class="mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                </div>
+                                <div class="mt-4">
+                                    <label for="title_domain" class="block text-sm font-medium text-gray-700">Nội
+                                        dung</label>
+                                    <input type="text" id="title_domain" name="cost[title][]"
+                                        class="mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                </div>
+                                <input type="hidden" id="date" name="cost[type][]" value="domain">
+                                <div class="mt-4">
+                                    <label for="price_domain" class="block text-sm font-medium text-gray-700">Chi phí
+                                        domain</label>
+                                    <input type="text" id="price_domain" name="cost[price][]"
+                                        class="mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"><br>
+                                </div>
+                            </template>
+                            <button id="showFormHostingButton" type="button"
+                                class="inline-block bg-green-500 hover:bg-green-700 text-white font-bold text-sm px-4 py-2 rounded-lg mr-2">Mua
+                                hosting</button>
+                            <template id="hostingFields" class="hidden">
+                                <div class="mt-4">
+                                    <label for="date" class="block text-sm font-medium text-gray-700">Ngày</label>
+                                    <input type="date" id="date" name="cost[date][]"
+                                        class="mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                </div>
+                                <div class="mt-4">
+                                    <label for="title_hosting" class="block text-sm font-medium text-gray-700">Nội
+                                        dung</label>
+                                    <input type="text" id="title_hosting" name="cost[title][]"
+                                        class="mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                </div>
+                                <input type="hidden" id="date" name="cost[type][]" value="hosting">
+                                <div class="mt-4">
+                                    <label for="price_hosting" class="block text-sm font-medium text-gray-700">Chi phí
+                                        hosting</label>
+                                    <input type="text" id="price_hosting" name="cost[price][]"
+                                        class="mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                </div>
+                            </template>
+
+                            <button type="submit"
+                                class="mt-8 inline-block bg-green-500 hover:bg-green-700 text-white font-bold text-sm px-4 py-2 rounded-lg">Thêm</button>
+                        </form>
+                    </body>
+
+                    </html>
+                </div>
+            </div>
+        </div>
+    </div>
+</x-app-layout>
+
 <script>
-    // document.getElementById('showFormHostingButton').addEventListener('click', function() {
-    //     var hostingFields = document.getElementById('hostingFields');
-    //     appen
-    //     if (hostingFields.classList.contains('hidden')) {
-    //         hostingFields.classList.remove('hidden');
-    //     } else {
-    //         hostingFields.classList.add('hidden');
-    //     }
-    // });
     document.getElementById('showFormDomainButton').addEventListener('click', function() {
         // Lấy nội dung của phần tử có id là "domainFields"
         var domainFieldsContent = document.getElementById("domainFields").innerHTML;

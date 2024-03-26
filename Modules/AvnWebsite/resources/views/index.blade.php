@@ -1,5 +1,7 @@
 @extends('avnwebsite::layouts.master')
+
 <x-app-layout>
+
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{-- {{ __('Dashboard') }} --}}
@@ -10,7 +12,17 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="w-full bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <h1 class="text-center font-bold">index</h1>
+                    <h1 class="text-center font-bold text-xl">index</h1>
+                    <div class="flex justify-end">
+                        <button class="bg-green-500 hover:bg-green-700 text-white flex items-center w-32 px-4 py-2 rounded-md mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm1 5a1 1 0 011-1h6a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1v-2zm10-1a1 1 0 00-1-1h-3V5a1 1 0 00-2 0v2H5a1 1 0 00-1 1v7a1 1 0 001 1h2v2a1 1 0 002 0v-2h6v2a1 1 0 002 0v-2h2a1 1 0 001-1V9zm-5 4h2v2h-2v-2z" clip-rule="evenodd" />
+                            </svg>
+                            <a href="{{ url('website/create') }}">Insert</a>
+                        </button>
+                    </div>
+
+
                     <div class="overflow-x-auto">
                         <table class="min-w-full divide-y divide-gray-200">
                             <thead class="bg-gray-50">
@@ -64,17 +76,17 @@
                                         @endphp
                                         <tr data-id="{{ $website->id }}">
                                             <td class="url border">{{ $website->url }}</td>
-                                            <td class="domain_date_register border">{{ $website->domain_date_register }}</td>
-                                            <td class="domain_date_expried border">{{ $website->domain_date_expried }}</td>
-                                            <td class="border">{{ $domain_cost ? $domain_cost->date : '' }}</td>
+                                            <td class="domain_date_register border">{{  \Carbon\Carbon::createFromFormat('Y-m-d', $website->domain_date_register)->format('d/m/Y') }}</td>
+                                            <td class="domain_date_expried border">{{ \Carbon\Carbon::createFromFormat('Y-m-d', $website->domain_date_expried)->format('d/m/Y') }}</td>
+                                            <td class="border">{{ \Carbon\Carbon::createFromFormat('Y-m-d',$domain_cost ? $domain_cost->date : '')->format('d/m/Y') }}</td>
                                             <td class="border">{{ $domain_cost ? $domain_cost->title : '' }}</td>
-                                            <td class="border">{{ $domain_cost ? $domain_cost->price : '' }}</td>
+                                            <td class="border">{{ $domain_cost ? number_format($domain_cost->price, 0, ',', '.').' VNĐ' : '' }}</td>
                                             <td class="url border">{{ $website->domain_info }}</td>
-                                            <td class="domain_date_register border">{{ $website->hosting_date_register }}</td>
-                                            <td class="domain_date_expried border">{{ $website->hosting_date_expried }}</td>
-                                            <td class="border">{{ $hosting_cost ? $hosting_cost->date : '' }}</td>
+                                            <td class="domain_date_register border">{{ \Carbon\Carbon::createFromFormat('Y-m-d', $website->hosting_date_register)->format('d/m/Y') }}</td>
+                                            <td class="domain_date_expried border">{{ \Carbon\Carbon::createFromFormat('Y-m-d', $website->hosting_date_expried)->format('d/m/Y') }}</td>
+                                            <td class="border">{{  \Carbon\Carbon::createFromFormat('Y-m-d',$hosting_cost ? $hosting_cost->date : '')->format('d/m/Y') }}</td>
                                             <td class="border">{{ $hosting_cost ? $hosting_cost->title : '' }}</td>
-                                            <td class="border">{{ $hosting_cost ? $hosting_cost->price : '' }}</td>
+                                            <td class="border">{{ $hosting_cost ? number_format($hosting_cost->price, 0, ',', '.') . ' VNĐ' : '' }}</td>
                                             <td class="url border">{{ $website->hosting_info }}</td>
                                             <td class="url border">{{ $website->note }}</td>
 
@@ -113,7 +125,6 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        <button class="inline-block bg-green-500 hover:bg-green-700 text-white font-bold text-sm w-32 rounded"><a href="{{ url('website/create') }}" >insert</a></button>
                         <script>
                             document.querySelectorAll('[data-id]').forEach(function(element) {
                                 var dataId = element.getAttribute('data-id');
