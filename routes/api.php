@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
-
+use App\Http\Controllers\Api\UserController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,15 +17,23 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 //  });
-//  Route::post('login', 'API\PassportController@login');
-//  Route::post('register', 'API\PassportController@register');
-//  Route::group(['middleware' => 'auth:api'], function(){
-//  Route::post('get-details', 'API\PassportController@getDetails');
-//  });
+
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
+});
+
+Route::post('login', [UserController::class, 'login']);
+Route::post('register', [UserController::class, 'register']);
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::post('details', [UserController::class, 'details']);
+});
 
 // Route::middleware('auth:api')->get('/user', function(Request $request) {
 //     return $request->user();
 // });
-Route::middleware('auth:api')->get('/user', function (Request $request)  {
-    Route::patch('callback/{driver}', [AuthenticatedSessionController::class, 'login']);
-});
+
+// Route::middleware('auth:api')->get('/user', function (Request $request)  {
+//     Route::get('/register', [AuthenticatedSessionController::class, 'register']);
+//     Route::patch('callback/{driver}', [AuthenticatedSessionController::class, 'login']);
+//     Route::delete('/logout', [AuthenticatedSessionController::class, 'logout']);
+// });
