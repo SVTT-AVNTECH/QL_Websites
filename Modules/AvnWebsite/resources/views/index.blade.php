@@ -76,15 +76,15 @@
                                         @endphp
                                         <tr data-id="{{ $website->id }}">
                                             <td class="url border">{{ $website->url }}</td>
-                                            <td class="domain_date_register border">{{  \Carbon\Carbon::createFromFormat('Y-m-d', $website->domain_date_register)->format('d/m/Y') }}</td>
-                                            <td class="domain_date_expried border">{{ \Carbon\Carbon::createFromFormat('Y-m-d', $website->domain_date_expried)->format('d/m/Y') }}</td>
-                                            <td class="border">{{ \Carbon\Carbon::createFromFormat('Y-m-d',$domain_cost ? $domain_cost->date : '')->format('d/m/Y') }}</td>
+                                            <td class="domain_date_register border">{{   $website->domain_date_register }}</td>
+                                            <td class="domain_date_expried border">{{  $website->domain_date_expried }}</td>
+                                            <td class="border">{{ $domain_cost ? $domain_cost->date : '' }}</td>
                                             <td class="border">{{ $domain_cost ? $domain_cost->title : '' }}</td>
                                             <td class="border">{{ $domain_cost ? number_format($domain_cost->price, 0, ',', '.').' VNĐ' : '' }}</td>
                                             <td class="url border">{{ $website->domain_info }}</td>
-                                            <td class="domain_date_register border">{{ \Carbon\Carbon::createFromFormat('Y-m-d', $website->hosting_date_register)->format('d/m/Y') }}</td>
-                                            <td class="domain_date_expried border">{{ \Carbon\Carbon::createFromFormat('Y-m-d', $website->hosting_date_expried)->format('d/m/Y') }}</td>
-                                            <td class="border">{{  \Carbon\Carbon::createFromFormat('Y-m-d',$hosting_cost ? $hosting_cost->date : '')->format('d/m/Y') }}</td>
+                                            <td class="domain_date_register border">{{  $website->hosting_date_register }}</td>
+                                            <td class="domain_date_expried border">{{  $website->hosting_date_expried }}</td>
+                                            <td class="border">{{  $hosting_cost ? $hosting_cost->date : ''}}</td>
                                             <td class="border">{{ $hosting_cost ? $hosting_cost->title : '' }}</td>
                                             <td class="border">{{ $hosting_cost ? number_format($hosting_cost->price, 0, ',', '.') . ' VNĐ' : '' }}</td>
                                             <td class="url border">{{ $website->hosting_info }}</td>
