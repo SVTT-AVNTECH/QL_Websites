@@ -40,6 +40,13 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'api' => [
+            // 'driver' => 'token',
+            // 'provider' => 'users',
+            'driver' => 'passport',
+            'provider' => 'users',
+            'hash' => true,
+        ],
     ],
 
     /*
@@ -114,7 +121,7 @@ return [
 
 
 
-    
+
     'socialite' => [
         'drivers' => [
             'google',
