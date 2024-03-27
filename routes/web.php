@@ -5,6 +5,9 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Telegram\Bot\Laravel\Facades\Telegram;
+use Telegram\Bot\Api;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +21,15 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 */
 
 Route::get('/', function () {
+    $telegram = new Api();
+
+    $response = $telegram->sendMessage([
+        'chat_id' => '6752232910',
+        'text' => 'XXXXXXXXXXXXXXXXXXX'
+    ]);
+
+    $messageId = $response->getMessageId();
+
     return view('welcome');
 });
 
