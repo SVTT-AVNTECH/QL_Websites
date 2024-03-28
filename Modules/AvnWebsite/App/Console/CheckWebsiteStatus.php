@@ -18,20 +18,18 @@ class CheckWebsiteStatus extends Command
 
     public function handle()
     {
-        $websites = Website::pluck('url')->all();
+        $websites = Website::get();
 
         $client = new Client();
 
         foreach ($websites as $website) {
             try {
-                $response = $client->get($website);
-                if ($response->getStatusCode() == 200) {
-                    $this->info("$website is up!");
-                } else {
-                    $this->error("$website is down!");
+                $response = $client->get($website->url);
+                if ($response->getStatusCode() > 399) {
+                    $this->info("Error!");
                 }
             } catch (\Exception $e) {
-                $this->error("$website is down! Error: " . $e->getMessage());
+                $this->error("Error: " . $e->getMessage());
             }
         }
     }

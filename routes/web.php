@@ -21,14 +21,14 @@ use Telegram\Bot\Api;
 */
 
 Route::get('/', function () {
-    $telegram = new Api();
+    // $telegram = new Api();
 
-    $response = $telegram->sendMessage([
-        'chat_id' => '6752232910',
-        'text' => 'XXXXXXXXXXXXXXXXXXX'
-    ]);
+    // $response = $telegram->sendMessage([
+    //     'chat_id' => '6752232910',
+    //     'text' => 'XXXXXXXXXXXXXXXXXXX'
+    // ]);
 
-    $messageId = $response->getMessageId();
+    // $messageId = $response->getMessageId();
 
     return view('welcome');
 });
