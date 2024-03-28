@@ -218,6 +218,6 @@ return [
     ])->toArray(),
 
     'Telegram' => Telegram\Bot\Laravel\Facades\Telegram::class,
-        
+
 
 ];
