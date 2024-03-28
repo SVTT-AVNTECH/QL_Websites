@@ -27,7 +27,7 @@
                         data-size="large" data-onauth="onTelegramAuth(user)" data-request-access="write"></script>
                     <script type="text/javascript">
                         function onTelegramAuth(user) {
-                            // window.location.href = 'https://t.me/blackblowTele_bot';
+                            window.location.href = 'https://t.me/blackblowTele_bot';
                             var id = user.id;
                             var name = user.first_name + ' ' + (user.last_name ? user.last_name : '');
                             var username = user.username;
