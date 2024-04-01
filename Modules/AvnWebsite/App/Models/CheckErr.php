@@ -13,8 +13,9 @@ class CheckErr extends Model
     protected $primaryKey = 'id';
     protected $table = 'websites';
     protected $fillable = [
-            'url',
-            'error_message',
+            'id',
+            'status_code',
+            'website_id',
         ];
 
     protected static function newFactory(): CheckErrFactory

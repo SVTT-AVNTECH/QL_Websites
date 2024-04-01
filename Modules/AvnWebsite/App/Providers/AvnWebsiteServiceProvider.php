@@ -4,6 +4,8 @@ namespace Modules\AvnWebsite\App\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Modules\AvnWebsite\App\Events\WebsiteErrorDetected;
+use Modules\AvnWebsite\App\Listeners\HandleWebsiteError;
 
 class AvnWebsiteServiceProvider extends ServiceProvider
 {
@@ -110,5 +112,12 @@ class AvnWebsiteServiceProvider extends ServiceProvider
         }
 
         return $paths;
+    }
+    protected function registerEventListeners(): void
+    {
+        $this->app['events']->listen(
+            WebsiteErrorDetected::class,
+            HandleWebsiteError::class
+        );
     }
 }
