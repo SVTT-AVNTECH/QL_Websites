@@ -12,9 +12,7 @@ use Modules\AvnWebsite\App\Models\CheckErr;
 use App\Models\User;
 use Illuminate\Support\Facades\Event;
 use Modules\AvnWebsite\App\Events\WebsiteErrorDetected;
-use Telegram\Bot\Laravel\Facades\Telegram;
-use Telegram\Bot\Api;
-
+use Utilities\Telegram;
 
 class CheckWebsiteStatus extends Command
 {
@@ -61,11 +59,16 @@ class CheckWebsiteStatus extends Command
     {
         $adminEmail = 'pxtruong02@gmail.com';
 
-        $errorNotification = new WebsiteErrorNotification($url, $statusCode);
+        try {
 
-        Mail::to($adminEmail)->send($errorNotification);
+            $errorNotification = new WebsiteErrorNotification($url, $statusCode);
+            Mail::to($adminEmail)->send($errorNotification);
+            event(new WebsiteErrorDetected($user, $url, $statusCode));
 
-        event(new WebsiteErrorDetected($user, $url, $statusCode));
+            Telegram::sendMessage($user, 'Website error: ' . $statusCode . ' at ' . $url);
+        } catch (\Exception $e) {
+            \Log::error('Failed to send error notification: ' . $e->getMessage());
+        }
     }
 }
 
