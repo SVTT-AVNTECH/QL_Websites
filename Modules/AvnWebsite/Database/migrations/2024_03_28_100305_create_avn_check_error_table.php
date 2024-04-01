@@ -10,9 +10,9 @@ return new class extends Migration
     {
         Schema::create('websites', function (Blueprint $table) {
             $table->id();
-            $table->string('url');
-            $table->text('error_message')->nullable();
-            $table->timestamps();
+            $table->string('status_code');
+            $table->unsignedBigInteger('website_id');
+            $table->foreign('website_id')->references('id')->on('table_avn_websites')->onDelete('cascade')->onUpdate('cascade');            $table->timestamps();
         });
     }
 

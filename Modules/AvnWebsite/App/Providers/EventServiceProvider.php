@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
+use Modules\AvnWebsite\App\Events\WebsiteErrorDetected;
+use Modules\AvnWebsite\App\Listeners\HandleWebsiteError;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -15,8 +15,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array<class-string, array<int, class-string>>
      */
     protected $listen = [
-        Registered::class => [
-            SendEmailVerificationNotification::class,
+        WebsiteErrorDetected::class => [
+            HandleWebsiteError::class,
         ],
     ];
 
@@ -35,5 +35,5 @@ class EventServiceProvider extends ServiceProvider
     {
         return false;
     }
-    
+
 }
