@@ -14,17 +14,17 @@ return new class extends Migration
         Schema::create('table_avn_websites', function (Blueprint $table) {
             $table->id();
             $table->text('url');
-            $table->date('domain_date_register');
-            $table->date('domain_date_expried');
+            $table->date('domain_date_register')->nullable();
+            $table->date('domain_date_expried')->nullable();
             $table->text('domain_info')->nullable();
-            $table->date('hosting_date_register');
-            $table->date('hosting_date_expried');
+            $table->date('hosting_date_register')->nullable();
+            $table->date('hosting_date_expried')->nullable();
             $table->text('hosting_info')->nullable();
             $table->text('note')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
             $table->timestamps();
-     
+
         });
     }
 

@@ -140,6 +140,11 @@ class AvnWebsiteController extends Controller
 
         // $avnwebsite = new AvnWebsites();
         $avnwebsite = AvnWebsites::findOrFail($id);
+        // $avnwebsite->domain_date_register =$request->domain_date_register;
+        // $avnwebsite->domain_date_expried =$request->domain_date_expried;
+        // $avnwebsite->hosting_date_register = $request->hosting_date_register;
+        // $avnwebsite->hosting_date_expried = $request->hosting_date_expried;
+        // $avnwebsite->save();
         foreach ($request->cost['date'] ?? [] as $key => $date) {
             if (isset($request->cost['date'][$key])) {
                 $cost = new AvnWebsiteCost();
@@ -151,9 +156,6 @@ class AvnWebsiteController extends Controller
                 $cost->save();
             }
         }
-
         return redirect('/website');
     }
-
-    
 }
