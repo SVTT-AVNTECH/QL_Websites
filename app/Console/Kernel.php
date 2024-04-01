@@ -15,6 +15,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('website:check-status')->everyMinute();
         $schedule->command('website:check-expiration')->daily();
         // $schedule->command('inspire')->hourly();
+        
     }
 
     /**

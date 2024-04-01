@@ -45,16 +45,31 @@ class ProfileController extends Controller
         $request->validateWithBag('userDeletion', [
             'password' => ['required', 'current_password'],
         ]);
-
         $user = $request->user();
-
         Auth::logout();
-
         $user->delete();
-
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-
         return Redirect::to('/');
+    }
+
+    public function insert_tele(Request $request)
+    {
+        $user = Auth::user();
+        $user->tele_id = $request->id;
+        $user->tele_name = $request->name;
+        $user->tele_avatar =$request->avatar;
+        $user->save();
+        return $user;
+    }
+
+    public function delete_tele(Request $request)
+    {
+        $user = Auth::user();
+        $user->tele_id = "";
+        $user->tele_name = "";
+        $user->tele_avatar ="";
+        $user->save();
+        return $user;
     }
 }

@@ -41,6 +41,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::post('/insert_tele', [ProfileController::class, 'insert_tele'])->name('profile.insert_tele');
+    Route::post('/delete_tele', [ProfileController::class, 'delete_tele'])->name('profile.delete_tele');
+
 });
 
 Route::get('redirect/{driver}', [AuthenticatedSessionController::class, 'redirectToProvider'])
@@ -68,5 +71,8 @@ Route::post('/email/verification-notification', function (Request $request) {
 
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+
+
 
 require __DIR__ . '/auth.php';
