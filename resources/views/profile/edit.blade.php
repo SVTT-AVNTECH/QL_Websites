@@ -23,24 +23,37 @@
                 <div class="max-w-xl">
                     @include('profile.partials.delete-user-form')
 
+
                     <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-login="blackblowTele_bot"
                         data-size="large" data-onauth="onTelegramAuth(user)" data-request-access="write"></script>
                     <script type="text/javascript">
                         function onTelegramAuth(user) {
-                            // window.location.href = 'https://t.me/blackblowTele_bot';
+                            alert('Đăng nhập thành công với tài khoản ' + user.first_name + ' ' + (user.last_name ? user.last_name : ''));
                             var id = user.id;
                             var name = user.first_name + ' ' + (user.last_name ? user.last_name : '');
-                            var username = user.username;
-                            var avatar = user.photo_url;
-                            console.log('ID: ' + id);
-                            console.log('Name: ' + name);
-                            console.log('Username: ' + username);
-                            console.log('Avatar: ' + avatar);
+                            var avatar = user.photo;
+                            axios.post("{{ route('profile.insert_tele') }}", {
+                                id: id,
+                                name: name,
+                                avatar: avatar
+                            })
+                            btn.style.display="block";
                         }
                     </script>
-
-
-
+                    <button onclick="deleteTelegramInfo()" id="btn" style="display:none" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"> Hủy </button>
+                    <script type="text/javascript">
+                        function deleteTelegramInfo() {
+                            axios.post("{{ route('profile.delete_tele') }}")
+                                .then(function(response) {
+                                    // Xử lý phản hồi từ máy chủ (nếu cần)
+                                    alert('Thông tin Telegram đã được xóa thành công.');
+                                })
+                                .catch(function(error) {
+                                    // Xử lý lỗi (nếu có)
+                                    console.error('Đã xảy ra lỗi khi xóa thông tin Telegram:', error);
+                                });
+                        }
+                    </script>
                 </div>
             </div>
         </div>
