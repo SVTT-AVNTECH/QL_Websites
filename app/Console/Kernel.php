@@ -4,6 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Modules\AvnWebsite\App\Console\CheckWebsiteStatus;
 
 class Kernel extends ConsoleKernel
 {
@@ -12,10 +13,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->command('website:check-status')->everyMinute();
-        $schedule->command('website:check-expiration')->daily();
+        $schedule->command('avnwebsite:check-status')->everyMinute();
+        // $schedule->command('website:check-expiration')->daily();
         // $schedule->command('inspire')->hourly();
-        
+
     }
 
     /**
@@ -23,10 +24,14 @@ class Kernel extends ConsoleKernel
      */
     protected function commands(): void
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
-        $this->load(__DIR__.'/../../Modules/AvnWebsite/App/Console');
+        $this->load(__DIR__ . '/../../Modules/AvnWebsite/App/Console');
 
         require base_path('routes/console.php');
     }
+
+    protected $commands = [
+        CheckWebsiteStatus::class,
+    ];
 }

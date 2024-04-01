@@ -21,7 +21,8 @@
                         </style>
                     </head>
 
-                    <form action="{{ route('AvnWebsite.insert') }}" method="post" class="max-w-lg mx-auto mt-8 p-8 bg-zinc-100 shadow-lg rounded-lg">
+                    <form action="{{ route('AvnWebsite.insert') }}" method="post"
+                        class="max-w-lg mx-auto mt-8 p-8 bg-zinc-100 shadow-lg rounded-lg">
                         @csrf
                         <h2 class="text-xl font-bold mb-4 text-red-500 text-center">Thêm hợp đồng</h2>
                         <div class="mb-4">
@@ -115,6 +116,7 @@
                             đồng</button>
                     </form>
                     </body>
+
                     </html>
                 </div>
             </div>

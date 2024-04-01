@@ -1,12 +1,9 @@
 <?php
-
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use Telegram\Bot\Laravel\Facades\Telegram;
-use Telegram\Bot\Api;
 
 
 /*
@@ -21,6 +18,7 @@ use Telegram\Bot\Api;
 */
 
 Route::get('/', function () {
+
     // $telegram = new Api();
 
     // $response = $telegram->sendMessage([

@@ -14,9 +14,13 @@
                 <div class="p-6 text-gray-900">
                     <h1 class="text-center font-bold text-xl">index</h1>
                     <div class="flex justify-end">
-                        <button class="bg-green-500 hover:bg-green-700 text-white flex items-center w-32 px-4 py-2 rounded-md mb-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm1 5a1 1 0 011-1h6a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1v-2zm10-1a1 1 0 00-1-1h-3V5a1 1 0 00-2 0v2H5a1 1 0 00-1 1v7a1 1 0 001 1h2v2a1 1 0 002 0v-2h6v2a1 1 0 002 0v-2h2a1 1 0 001-1V9zm-5 4h2v2h-2v-2z" clip-rule="evenodd" />
+                        <button
+                            class="bg-green-500 hover:bg-green-700 text-white flex items-center w-32 px-4 py-2 rounded-md mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20"
+                                fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm1 5a1 1 0 011-1h6a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1v-2zm10-1a1 1 0 00-1-1h-3V5a1 1 0 00-2 0v2H5a1 1 0 00-1 1v7a1 1 0 001 1h2v2a1 1 0 002 0v-2h6v2a1 1 0 002 0v-2h2a1 1 0 001-1V9zm-5 4h2v2h-2v-2z"
+                                    clip-rule="evenodd" />
                             </svg>
                             <a href="{{ url('website/create') }}">Insert</a>
                         </button>
@@ -27,29 +31,67 @@
                         <table class="min-w-full divide-y divide-gray-200">
                             <thead class="bg-gray-50">
                                 <tr>
-                                    <th rowspan="3" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border align-middle">URL</th>
-                                    <th colspan="6" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">Tên miền</th>
-                                    <th colspan="6" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">Hosting</th>
-                                    <th rowspan="3" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">Ghi chú</th>
-                                    <th rowspan="3" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">Edit</th>
+                                    <th rowspan="3"
+                                        class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border align-middle">
+                                        URL</th>
+                                    <th colspan="6"
+                                        class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">
+                                        Tên miền</th>
+                                    <th colspan="6"
+                                        class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">
+                                        Hosting</th>
+                                    <th rowspan="3"
+                                        class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">
+                                        Ghi chú</th>
+                                    <th rowspan="3"
+                                        class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">
+                                        Edit</th>
                                 </tr>
                                 <tr>
-                                    <th rowspan="2" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">Ngày đăng ký</th>
-                                    <th rowspan="2" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">Ngày hết hạn</th>
-                                    <th colspan="3" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">Chi phí</th>
-                                    <th rowspan="2" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">Thông tin quản trị</th>
-                                    <th rowspan="2" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">Ngày đăng ký</th>
-                                    <th rowspan="2" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">Ngày hết hạn</th>
-                                    <th colspan="3" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">Chi phí</th>
-                                    <th rowspan="2" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">Thông tin quản trị</th>
+                                    <th rowspan="2"
+                                        class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">
+                                        Ngày đăng ký</th>
+                                    <th rowspan="2"
+                                        class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">
+                                        Ngày hết hạn</th>
+                                    <th colspan="3"
+                                        class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">
+                                        Chi phí</th>
+                                    <th rowspan="2"
+                                        class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">
+                                        Thông tin quản trị</th>
+                                    <th rowspan="2"
+                                        class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">
+                                        Ngày đăng ký</th>
+                                    <th rowspan="2"
+                                        class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">
+                                        Ngày hết hạn</th>
+                                    <th colspan="3"
+                                        class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">
+                                        Chi phí</th>
+                                    <th rowspan="2"
+                                        class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">
+                                        Thông tin quản trị</th>
                                 </tr>
                                 <tr>
-                                    <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">Ngày</th>
-                                    <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">Nội dung</th>
-                                    <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">Chi phí</th>
-                                    <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">Ngày</th>
-                                    <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">Nội dung</th>
-                                    <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">Chi phí</th>
+                                    <th
+                                        class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">
+                                        Ngày</th>
+                                    <th
+                                        class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">
+                                        Nội dung</th>
+                                    <th
+                                        class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">
+                                        Chi phí</th>
+                                    <th
+                                        class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">
+                                        Ngày</th>
+                                    <th
+                                        class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">
+                                        Nội dung</th>
+                                    <th
+                                        class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">
+                                        Chi phí</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -75,18 +117,34 @@
                                                 : null;
                                         @endphp
                                         <tr data-id="{{ $website->id }}">
-                                            <td class="url border">{{ $website->url }}</td>
-                                            <td class="domain_date_register border">{{   $website->domain_date_register }}</td>
-                                            <td class="domain_date_expried border">{{  $website->domain_date_expried }}</td>
-                                            <td class="border">{{ $domain_cost ? $domain_cost->date : '' }}</td>
-                                            <td class="border">{{ $domain_cost ? $domain_cost->title : '' }}</td>
-                                            <td class="border">{{ $domain_cost ? number_format($domain_cost->price, 0, ',', '.').' VNĐ' : '' }}</td>
+                                            <td class="url border">
+                                                {{ $website->url }}
+                                            </td>
+                                            <td class="domain_date_register border">
+                                                {{ $website->domain_date_register }}
+                                            </td>
+                                            <td class="domain_date_expried border">
+                                                {{ $website->domain_date_expried }}
+                                            </td>
+                                            <td class="border">
+                                                {{ $domain_cost ? $domain_cost->date : '' }}
+                                            </td>
+                                            <td class="border">
+                                                {{ $domain_cost ? $domain_cost->title : '' }}
+                                            </td>
+                                            <td class="border">
+                                                {{ $domain_cost ? number_format($domain_cost->price, 0, ',', '.') . ' VNĐ' : '' }}
+                                            </td>
                                             <td class="url border">{{ $website->domain_info }}</td>
-                                            <td class="domain_date_register border">{{  $website->hosting_date_register }}</td>
-                                            <td class="domain_date_expried border">{{  $website->hosting_date_expried }}</td>
-                                            <td class="border">{{  $hosting_cost ? $hosting_cost->date : ''}}</td>
+                                            <td class="domain_date_register border">
+                                                {{ $website->hosting_date_register }}</td>
+                                            <td class="domain_date_expried border">{{ $website->hosting_date_expried }}
+                                            </td>
+                                            <td class="border">{{ $hosting_cost ? $hosting_cost->date : '' }}</td>
                                             <td class="border">{{ $hosting_cost ? $hosting_cost->title : '' }}</td>
-                                            <td class="border">{{ $hosting_cost ? number_format($hosting_cost->price, 0, ',', '.') . ' VNĐ' : '' }}</td>
+                                            <td class="border">
+                                                {{ $hosting_cost ? number_format($hosting_cost->price, 0, ',', '.') . ' VNĐ' : '' }}
+                                            </td>
                                             <td class="url border">{{ $website->hosting_info }}</td>
                                             <td class="url border">{{ $website->note }}</td>
 
@@ -119,7 +177,6 @@
                                                         class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold text-sm  w-32 rounded">delete</button>
                                                 </form>
                                             </td>
-
                                         </tr>
                                     @endfor
                                 @endforeach

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Events;
+namespace Modules\AvnWebsite\App\Events;
 
 use App\Models\User;
 use Illuminate\Broadcasting\InteractsWithSockets;
