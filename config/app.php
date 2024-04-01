@@ -200,8 +200,6 @@ return [
 
 
         Laravel\Passport\PassportServiceProvider::class,
-
-        Modules\AvnWebsite\Providers\EventServiceProvider::class,
     ],
 
     /*

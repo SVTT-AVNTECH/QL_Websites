@@ -33,7 +33,7 @@ class AvnWebsites extends Model
     {
         //return AvnWebsitesFactory::new();
     }
-    public function User()
+    public function user()
     {
         return $this->hasOne(User::class, 'id', 'user_id');
     }

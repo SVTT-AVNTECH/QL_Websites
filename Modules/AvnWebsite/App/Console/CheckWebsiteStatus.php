@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Events\WebsiteErrorDetected;
 use Illuminate\Support\Facades\Event;
 
+
 class CheckWebsiteStatus extends Command
 {
     protected $signature = 'avnwebsite:check-status';
@@ -29,29 +30,31 @@ class CheckWebsiteStatus extends Command
 
         foreach ($websites as $website) {
             try {
-                $user = User::findOrFail($website->website_id);
                 $url = $user->url;
                 $response = $client->get($url);
 
                 if ($response->getStatusCode() >= 400) {
 
+                    $user = $website->user;
                     $this->notifyError($url, $response->getStatusCode());
 
                     event(new WebsiteErrorDetected($user, $url, $response->getStatusCode()));
                 }
             } catch (\Exception $e) {
-
+                $this->error($e->getMessage());
             }
         }
     }
 
-    private function notifyError($url, $statusCode)
+    private function notifyError($url, $statusCode, $user)
     {
         $adminEmail = 'pxtruong02@gmail.com';
 
-        $errorNotification = new WebsiteErrorNotification($url, 'HTTP error: ' . $statusCode);
+        $errorNotification = new WebsiteErrorNotification($url, $statusCode);
 
         Mail::to($adminEmail)->send($errorNotification);
+
+        event(new WebsiteErrorDetected($user, $url, $statusCode));
     }
 }
 
