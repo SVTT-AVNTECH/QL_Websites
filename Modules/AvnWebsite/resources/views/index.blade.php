@@ -174,7 +174,7 @@
                                                     @csrf
                                                     @method('delete')
                                                     <button type="submit"
-                                                        class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold text-sm  w-32 rounded">delete</button>
+                                                        class="inline-block bg-red-600 hover:bg-red-400 text-white font-bold text-sm  w-32 rounded">delete</button>
                                                 </form>
                                             </td>
                                         </tr>
