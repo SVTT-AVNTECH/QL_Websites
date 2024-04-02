@@ -10,6 +10,7 @@ use Modules\AvnWebsite\App\Models\AvnWebsites;
 use Modules\AvnWebsite\App\Models\AvnWebsiteCost;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Modules\AvnWebsite\App\Console\CheckWebsiteStatus;
 
 class AvnWebsiteController extends Controller
 {
@@ -18,6 +19,7 @@ class AvnWebsiteController extends Controller
      */
     public function index()
     {
+        CheckWebsiteStatus::notifyError(Auth::user(), 500, 'xxxxxxxxxxxxxxx');
         // return view('avnwebsite::index');
         $websites = AvnWebsites::get();
         return view('avnwebsite::index', ['websites' => $websites]);
