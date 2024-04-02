@@ -9,6 +9,7 @@ use Illuminate\Http\Response;
 use Modules\AvnWebsite\App\Models\AvnWebsites;
 use Modules\AvnWebsite\App\Models\AvnWebsiteCost;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class AvnWebsiteController extends Controller
 {
@@ -39,29 +40,35 @@ class AvnWebsiteController extends Controller
         //     'price' => 'required|numeric',
         // ]);
 
-        $avnwebsite = new AvnWebsites();
-        $avnwebsite->url = $request->url;
-        $avnwebsite->domain_date_register = $request->domain_date_register;
-        $avnwebsite->domain_date_expried = $request->domain_date_expried;
-        $avnwebsite->hosting_date_register = $request->hosting_date_register;
-        $avnwebsite->hosting_date_expried = $request->hosting_date_expried;
-        $avnwebsite->hosting_info = $request->hosting_info;
-        $avnwebsite->domain_info = $request->domain_info;
-        $avnwebsite->note = $request->note;
-        $avnwebsite->save();
+            $user = Auth::user();
+            // return $user;
 
-        foreach ($request->cost['date'] ?? [] as $key => $date) {
-            if (isset($request->cost['date'][$key])) {
-                $cost = new AvnWebsiteCost();
-                $cost->date = $request->cost['date'][$key];
-                $cost->title = $request->cost['title'][$key];
-                $cost->price = $request->cost['price'][$key];
-                $cost->type = $request->cost['type'][$key];
-                $cost->website_id = $avnwebsite->id;
-                $cost->save();
+            $avnwebsite = new AvnWebsites();
+            $avnwebsite->url = $request->url;
+            $avnwebsite->domain_date_register = $request->domain_date_register;
+            $avnwebsite->domain_date_expried = $request->domain_date_expried;
+            $avnwebsite->hosting_date_register = $request->hosting_date_register;
+            $avnwebsite->hosting_date_expried = $request->hosting_date_expried;
+            $avnwebsite->hosting_info = $request->hosting_info;
+            $avnwebsite->domain_info = $request->domain_info;
+            $avnwebsite->note = $request->note;
+            $avnwebsite->user_id = $user->id;
+            $avnwebsite->save();
+
+            foreach ($request->cost['date'] ?? [] as $key => $date) {
+                if (isset($request->cost['date'][$key])) {
+                    $cost = new AvnWebsiteCost();
+                    $cost->date = $request->cost['date'][$key];
+                    $cost->title = $request->cost['title'][$key];
+                    $cost->price = $request->cost['price'][$key];
+                    $cost->type = $request->cost['type'][$key];
+                    $cost->website_id = $avnwebsite->id;
+                    $cost->save();
+                }
             }
-        }
-        return redirect('/website');
+            return redirect('/website');
+
+
     }
 
     /**
