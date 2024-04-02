@@ -55,17 +55,19 @@ class CheckWebsiteStatus extends Command
         }
     }
 
-    private function notifyError($url, $statusCode, $user)
+    private function notifyError($user, $statusCode, $url)
     {
-        $adminEmail = 'pxtruong02@gmail.com';
-
+        $adminEmail = config('MAIL_USERNAME');
         try {
+            // $errorNotification = new WebsiteErrorNotification($url, $statusCode);
+            // Mail::to($user->email)->send($errorNotification);
 
             $errorNotification = new WebsiteErrorNotification($url, $statusCode);
             Mail::to($adminEmail)->send($errorNotification);
-            event(new WebsiteErrorDetected($user, $url, $statusCode));
 
-            Telegram::sendMessage($user, 'Website error: ' . $statusCode . ' at ' . $url);
+            $telegramMessage = 'Website error: ' . $statusCode . ' at ' . $url;
+            sendTelegramMessage($user, $telegramMessage);
+
         } catch (\Exception $e) {
             \Log::error('Failed to send error notification: ' . $e->getMessage());
         }
