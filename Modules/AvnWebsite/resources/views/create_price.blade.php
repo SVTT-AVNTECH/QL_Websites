@@ -5,21 +5,6 @@
                 <div class="p-6 text-gray-900">
 
 
-                    <!DOCTYPE html>
-                    <html lang="en">
-
-                    <head>
-                        <meta charset="UTF-8">
-                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                        <title>Thêm Hợp Đồng</title>
-                        <style>
-                            .hidden {
-                                display: none;
-
-                            }
-                        </style>
-                    </head>
-
                     <body class="bg-gray-700">
                         <form action="{{ route('AvnWebsite.insert_price', ['id' => $website->id]) }}" method="post"
                             class="max-w-lg mx-auto mt-8 p-8 bg-zinc-100 shadow-lg rounded-lg">

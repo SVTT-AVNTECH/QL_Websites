@@ -72,4 +72,5 @@ class ProfileController extends Controller
         $user->save();
         return $user;
     }
+
 }
