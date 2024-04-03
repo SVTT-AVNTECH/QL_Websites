@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use App\Models\User;
 
 
 /*
@@ -19,14 +20,12 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 Route::get('/', function () {
 
-    // $telegram = new Api();
-
-    // $response = $telegram->sendMessage([
-    //     'chat_id' => '6752232910',
-    //     'text' => 'XXXXXXXXXXXXXXXXXXX'
+    // $user = Auth::user();
+    // $message = "Xsmax";
+    // $result = Telegram::sendMessage([
+    //     'chat_id' => $user->tele_id,
+    //     'text' => $message
     // ]);
-
-    // $messageId = $response->getMessageId();
 
     return view('welcome');
 });

@@ -15,16 +15,16 @@
                                 class="inline-block bg-green-500 hover:bg-green-700 text-white font-bold text-sm px-4 py-2 rounded-lg mr-2">Mua
                                 domain</button>
                             <template id="domainFields" class="hidden">
-                                {{-- <div class="mb-4">
+                                <div class="mb-4">
                                     <label for="domain_date_register" class="block mb-2">Ngày đăng ký domain</label>
                                     <input type="date" id="domain_date_register" name="domain_date_register"
-                                        class="border border-gray-300 rounded-md px-3 py-2 w-full">
+                                        class="border border-gray-300 rounded-md px-3 py-2 w-full" value="{{$website->domain_date_register}}">
                                 </div>
                                 <div class="mb-4">
                                     <label for="domain_date_expried" class="block mb-2">Ngày hết hạn domain</label>
                                     <input type="date" id="domain_date_expried" name="domain_date_expried"
-                                        class="border border-gray-300 rounded-md px-3 py-2 w-full">
-                                </div> --}}
+                                        class="border border-gray-300 rounded-md px-3 py-2 w-full" value="{{$website->domain_date_expried}}">
+                                </div>
                                 <div class="mt-4">
                                     <label for="date" class="block text-sm font-medium text-gray-700">Ngày</label>
                                     <input type="date" id="date" name="cost[date][]"
@@ -48,16 +48,26 @@
                                 class="inline-block bg-green-500 hover:bg-green-700 text-white font-bold text-sm px-4 py-2 rounded-lg mr-2">Mua
                                 hosting</button>
                             <template id="hostingFields" class="hidden">
-                                {{-- <div class="mb-4">
+                                <div class="mb-4">
+                                    <label for="domain_date_register" class="block mb-2 hidden">Ngày đăng ký domain</label>
+                                    <input type="date" id="domain_date_register" name="domain_date_register"
+                                        class="border border-gray-300 rounded-md px-3 py-2 w-full hidden" value="{{$website->domain_date_register}}">
+                                </div>
+                                <div class="mb-4">
+                                    <label for="domain_date_expried" class="block mb-2 hidden">Ngày hết hạn domain</label>
+                                    <input type="date" id="domain_date_expried" name="domain_date_expried"
+                                        class="border border-gray-300 rounded-md px-3 py-2 w-full hidden" value="{{$website->domain_date_expried}}">
+                                </div>
+                                <div class="mb-4">
                                     <label for="hosting_date_register" class="block mb-2">Ngày đăng ký hosting</label>
                                     <input type="date" id="hosting_date_register" name="hosting_date_register"
-                                        class="border border-gray-300 rounded-md px-3 py-2 w-full">
+                                        class="border border-gray-300 rounded-md px-3 py-2 w-full" value="{{$website->hosting_date_register}}">
                                 </div>
                                 <div class="mb-4">
                                     <label for="hosting_date_expried" class="block mb-2">Ngày hết hạn hosting</label>
                                     <input type="date" id="hosting_date_expried" name="hosting_date_expried"
-                                        class="border border-gray-300 rounded-md px-3 py-2 w-full">
-                                </div> --}}
+                                        class="border border-gray-300 rounded-md px-3 py-2 w-full" value="{{$website->hosting_date_expried}}">
+                                </div>
                                 <div class="mt-4">
                                     <label for="date" class="block text-sm font-medium text-gray-700">Ngày</label>
                                     <input type="date" id="date" name="cost[date][]"

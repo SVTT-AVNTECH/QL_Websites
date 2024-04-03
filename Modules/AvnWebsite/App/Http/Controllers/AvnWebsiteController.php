@@ -8,8 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Modules\AvnWebsite\App\Models\AvnWebsites;
 use Modules\AvnWebsite\App\Models\AvnWebsiteCost;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 use Modules\AvnWebsite\App\Console\CheckWebsiteStatus;
 
 class AvnWebsiteController extends Controller
@@ -22,6 +22,7 @@ class AvnWebsiteController extends Controller
         $checkWebsiteStatus = new CheckWebsiteStatus();
         $checkWebsiteStatus->notifyError(500, 'aaaaaaaaaaaaa');
         $websites = AvnWebsites::get();
+
         return view('avnwebsite::index', ['websites' => $websites]);
     }
 
@@ -147,13 +148,12 @@ class AvnWebsiteController extends Controller
     public function insert_price(Request $request,$id)
     {
 
-        // $avnwebsite = new AvnWebsites();
         $avnwebsite = AvnWebsites::findOrFail($id);
-        // $avnwebsite->domain_date_register =$request->domain_date_register;
-        // $avnwebsite->domain_date_expried =$request->domain_date_expried;
-        // $avnwebsite->hosting_date_register = $request->hosting_date_register;
-        // $avnwebsite->hosting_date_expried = $request->hosting_date_expried;
-        // $avnwebsite->save();
+        $avnwebsite->domain_date_register =$request->domain_date_register;
+        $avnwebsite->domain_date_expried =$request->domain_date_expried;
+        $avnwebsite->hosting_date_register = $request->hosting_date_register;
+        $avnwebsite->hosting_date_expried = $request->hosting_date_expried;
+        $avnwebsite->save();
         foreach ($request->cost['date'] ?? [] as $key => $date) {
             if (isset($request->cost['date'][$key])) {
                 $cost = new AvnWebsiteCost();
