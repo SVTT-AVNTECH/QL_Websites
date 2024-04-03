@@ -3,7 +3,7 @@
 namespace Modules\AvnWebsite\App\Console;
 
 use App\Models\Models\Website;
-use App\Notifications\WebsiteErrorNotification;
+use Modules\AvnWebsite\App\Notifications\WebsiteErrorNotification;
 use Illuminate\Console\Command;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Mail;
@@ -55,15 +55,12 @@ class CheckWebsiteStatus extends Command
         }
     }
 
-    private function notifyError($user, $statusCode, $url)
-    {
-        $adminEmail = config('MAIL_USERNAME');
-        try {
-            // $errorNotification = new WebsiteErrorNotification($url, $statusCode);
-            // Mail::to($user->email)->send($errorNotification);
 
+    public static function notifyError($user, $statusCode, $url)
+    {
+        try {
             $errorNotification = new WebsiteErrorNotification($url, $statusCode);
-            Mail::to($adminEmail)->send($errorNotification);
+            Mail::to('pxtruong02@gmail.com')->send($errorNotification);
 
             $telegramMessage = 'Website error: ' . $statusCode . ' at ' . $url;
             sendTelegramMessage($user, $telegramMessage);
@@ -72,6 +69,7 @@ class CheckWebsiteStatus extends Command
             \Log::error('Failed to send error notification: ' . $e->getMessage());
         }
     }
+
 }
 
 
