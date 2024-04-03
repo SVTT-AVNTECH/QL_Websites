@@ -20,7 +20,7 @@ class AvnWebsiteController extends Controller
     public function index()
     {
         $checkWebsiteStatus = new CheckWebsiteStatus();
-        $checkWebsiteStatus->notifyError(500, 'aaaaaaaaaaaaa');
+        $checkWebsiteStatus->notifyError(400, 'aaaaaaaaaaaaa');
         $websites = AvnWebsites::get();
 
         return view('avnwebsite::index', ['websites' => $websites]);

@@ -31,7 +31,4 @@ Route::prefix('website')->middleware('auth')->group(function () {
     Route::get('/view/{id}', [AvnWebsiteController::class, 'view'])->name('AvnWebsite.view');
     Route::get('create_price/{id}', [AvnWebsiteController::class, 'create_price'])->name('AvnWebsite.create_price');
     Route::post('/insert_price/{id}', [AvnWebsiteController::class, 'insert_price'])->name('AvnWebsite.insert_price');
-    // Mail::raw('Internal Server Error', function ($message) {
-    //     $message->to('pxtruong02@gmail.com')->subject('Error Notification');
-    // });
 });
