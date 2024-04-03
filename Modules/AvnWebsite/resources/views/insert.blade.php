@@ -12,7 +12,7 @@
                             @csrf
                             <h2 class="text-xl font-bold mb-4 text-red-500 text-center">Thêm hợp đồng</h2>
                             <div class="mb-4">
-                                <label for="url" class="block mb-2">URL:</label>
+                                <label for="url" class="block mb-2">URL:(*)</label>
                                 <input type="text" id="url" name="url" required
                                     class="border border-gray-300 rounded-md px-3 py-2 w-full">
                             </div>
@@ -27,9 +27,9 @@
                                     class="border border-gray-300 rounded-md px-3 py-2 w-full">
                             </div>
                             <div class="mb-4">
-                                <label for="domain_date_register" class="block mb-2">Thông tin quản trị domain:</label>
+                                <label for="domain_date_register" class="block mb-2">Thông tin quản trị domain:(*)</label>
                                 <input type="text" id="domain_date_register" name="domain_info" multiple
-                                    class="border border-gray-300 rounded-md px-3 py-2 w-full">
+                                    class="border border-gray-300 rounded-md px-3 py-2 w-full" required>
                             </div>
 
                             <div class="mb-4">
@@ -44,15 +44,15 @@
                             </div>
                             <div class="mb-4">
                                 <label for="hosting_date_register" class="block mb-2">Thông tin quản trị
-                                    hosting:</label>
+                                    hosting:(*)</label>
                                 <input type="text" id="hosting_date_register" name="hosting_info" multiple
-                                    class="border border-gray-300 rounded-md px-3 py-2 w-full">
+                                    class="border border-gray-300 rounded-md px-3 py-2 w-full" required>
                             </div>
 
                             <div class="mb-4">
-                                <label for="note" class="block mb-2">Ghi chú:</label>
+                                <label for="note" class="block mb-2">Ghi chú:(*)</label>
                                 <input type="text" id="note" name="note"
-                                    class="border border-gray-300 rounded-md px-3 py-2 w-full">
+                                    class="border border-gray-300 rounded-md px-3 py-2 w-full" required>
                             </div>
 
 
