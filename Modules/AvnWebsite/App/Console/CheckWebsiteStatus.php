@@ -10,9 +10,12 @@ use Illuminate\Support\Facades\Mail;
 use Modules\AvnWebsite\App\Models\AvnWebsites;
 use Modules\AvnWebsite\App\Models\CheckErr;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 use Modules\AvnWebsite\App\Events\WebsiteErrorDetected;
 use Utilities\Telegram;
+use Illuminate\Support\Facades\Log;
+
 
 class CheckWebsiteStatus extends Command
 {
@@ -56,14 +59,16 @@ class CheckWebsiteStatus extends Command
     }
 
 
-    public static function notifyError($user, $statusCode, $url)
+    public static function notifyError($statusCode, $url)
     {
         try {
-            $errorNotification = new WebsiteErrorNotification($url, $statusCode);
-            Mail::to('pxtruong02@gmail.com')->send($errorNotification);
 
-            $telegramMessage = 'Website error: ' . $statusCode . ' at ' . $url;
-            sendTelegramMessage($user, $telegramMessage);
+            $message = $statusCode . $url;
+            Telegram::sendMessage(Auth::user(), $message);
+
+            Mail::raw($url . $statusCode, function ($message) {
+                $message->to('pxtruong02@gmail.com')->subject('Lỗi');
+            });
 
         } catch (\Exception $e) {
             \Log::error('Failed to send error notification: ' . $e->getMessage());

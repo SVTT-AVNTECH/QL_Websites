@@ -19,8 +19,8 @@ class AvnWebsiteController extends Controller
      */
     public function index()
     {
-        CheckWebsiteStatus::notifyError(Auth::user(), 500, 'xxxxxxxxxxxxxxx');
-        // return view('avnwebsite::index');
+        $checkWebsiteStatus = new CheckWebsiteStatus();
+        $checkWebsiteStatus->notifyError(500, 'aaaaaaaaaaaaa');
         $websites = AvnWebsites::get();
         return view('avnwebsite::index', ['websites' => $websites]);
     }

@@ -3,10 +3,8 @@
 namespace Utilities;
 
 use App\Models\User;
-use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\ServiceProvider;
-use Modules\AvnWebsite\App\Events\WebsiteErrorDetected;
-use Modules\AvnWebsite\App\Listeners\HandleWebsiteError;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class Telegram
 {

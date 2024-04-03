@@ -36,10 +36,7 @@ class WebsiteErrorNotification extends Mailable
     {
         try {
             return (new MailMessage)
-                ->subject('Website Error Notification')
-                ->line('An error occurred on the website with URL: ' . $this->url)
-                ->line('Status Code: ' . $this->statusCode)
-                ->line('Please take necessary actions to resolve the issue.');
+                ->subject('xxxxxxxxxxxx');
         } catch (\Exception $e) {
             \Log::error('Failed to create mail message: ' . $e->getMessage());
             return null;
