@@ -24,6 +24,7 @@ class AvnWebsiteServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/migrations'));
+        $this->registerEventListeners();
     }
 
     /**
@@ -117,7 +118,9 @@ class AvnWebsiteServiceProvider extends ServiceProvider
     {
         $this->app['events']->listen(
             WebsiteErrorDetected::class,
-            HandleWebsiteError::class
+            // HandleWebsiteError::class
         );
+
+        \Log::info('Event listener for WebsiteErrorDetected registered successfully.');
     }
 }

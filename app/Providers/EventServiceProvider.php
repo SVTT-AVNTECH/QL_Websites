@@ -6,8 +6,6 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
-use Modules\AvnWebsite\App\Events\WebsiteErrorDetected;
-use Modules\AvnWebsite\App\Listeners\HandleWebsiteError;
 
 class EventServiceProvider extends ServiceProvider
 {

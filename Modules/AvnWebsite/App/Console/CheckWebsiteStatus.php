@@ -33,33 +33,43 @@ class CheckWebsiteStatus extends Command
         foreach ($websites as $website) {
             $url = $website->url;
 
-            $response = $client->get($url, ['http_errors' => false]);
-            $statusCode = $response->getStatusCode();
+            $has_err = false;
+            $statusCode = null;
+            $errorMessage = null;
+            try {
+                $response = $client->get($url, ['http_errors' => false]);
+                $statusCode = $response->getStatusCode();
+                if ($statusCode >= 400) {
+                    $has_err = true;
+                }
+            } catch (\Throwable $th) {
+                $has_err = true;
+                $errorMessage = $th->getMessage();
+            }
 
-            if ($statusCode >= 400) {
-                $error = new CheckErr();
-                $error->status_code = $statusCode;
-                $error->website_id = $website->id;
+            if ($has_err) {
                 $user = $website->user;
+                $message = $statusCode ? "Error $statusCode site $url" : "Error accessing site $url: $errorMessage";
+                Telegram::sendMessage($user, $message);
                 $this->notifyError($statusCode, $url, $user);
-                event(new WebsiteErrorDetected($user, $url, $statusCode));
-                return 'xxxxxxxxxxxxxx';
+                // event(new WebsiteErrorDetected($user, $url, $statusCode));
             }
         }
     }
 
-    public function notifyError($statusCode, $url)
+    public function notifyError($statusCode, $url, $user)
     {
-        if ($statusCode >= 400) {
+        if ($statusCode >= 400 && $user) {
             try {
                 $message = $statusCode . $url;
-                Mail::raw($url . $statusCode, function ($message) {
-                    $message->to(env('MAIL_USERNAME'))->subject('Lỗi');
+                Mail::raw($url . $statusCode, function ($message) use ($user) {
+                    $message->to($user->email)->subject('ERROR');
                 });
             } catch (\Exception $e) {
                 \Log::error('Failed to send error notification: ' . $e->getMessage());
             }
         }
     }
+
 
 }

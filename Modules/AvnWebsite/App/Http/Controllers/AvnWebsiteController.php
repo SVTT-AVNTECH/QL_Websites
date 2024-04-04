@@ -10,7 +10,8 @@ use Modules\AvnWebsite\App\Models\AvnWebsites;
 use Modules\AvnWebsite\App\Models\AvnWebsiteCost;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-use Modules\AvnWebsite\App\Console\CheckWebsiteStatus;
+// use Modules\AvnWebsite\App\Console\CheckWebsiteStatus;
+// use Utilities\Telegram;
 
 class AvnWebsiteController extends Controller
 {
@@ -19,8 +20,8 @@ class AvnWebsiteController extends Controller
      */
     public function index()
     {
-        $checkWebsiteStatus = new CheckWebsiteStatus();
-        $checkWebsiteStatus->notifyError(400, 'aaaaaaaaaaaaa');
+        // $checkWebsiteStatus = new CheckWebsiteStatus();
+        // $checkWebsiteStatus->notifyError(400, 'aaaaaaaaaaaaa');
         $websites = AvnWebsites::get();
 
         return view('avnwebsite::index', ['websites' => $websites]);
