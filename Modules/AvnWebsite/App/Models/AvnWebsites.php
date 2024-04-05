@@ -14,7 +14,7 @@ class AvnWebsites extends Model
     /**
      * The attributes that are mass assignable.
      */
-    protected $table = 'table_avn_websites';
+    protected $table = 'table_avn_websites';   
     protected $primaryKey = 'id';
     protected $fillable = [
         'id',

@@ -4,40 +4,54 @@ namespace App\Console;
 
 use Illuminate\Console;
 use Modules\AvnWebsite\App\Models\AvnWebsites;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class CheckDomainAndHostingExpiration extends Command
 {
-    protected $signature = 'website:check-expiration';
-    protected $description = 'Check domain and hosting expiration from database';
-
-    public function __construct()
+    public static function handle()
     {
-        parent::__construct();
-    }
-
-    public function handle()
-    {
-        $websites = AvnWebsites::all();
+        $websites = AvnWebsites::with('user')->get();
 
         foreach ($websites as $website) {
-            $domainExpirationDate = $website->domain_date_expried;
-            $hostingExpirationDate = $website->hosting_date_expried;
-
-            if ($this->isExpiringSoon($domainExpirationDate) || $this->isExpiringSoon($hostingExpirationDate)) {
-                $this->sendNotification($website);
+            if (self::isExpiringSoon($website->domain_date_expried) || self::isExpiringSoon($website->hosting_date_expried)) {
+                self::sendNotification($website);
             }
         }
     }
 
-    private function isExpiringSoon($expirationDate)
+    public static function isExpiringSoon($expirationDate)
     {
-        $expirationDate = strtotime($expirationDate);
-        $currentDate = strtotime(now());
-        return ($expirationDate - $currentDate) / (60 * 60 * 24) <= 30;
+        $expirationTimestamp = strtotime($expirationDate);
+        $currentTimestamp = strtotime('now');
+        $secondsInThreeDays = 3 * 24 * 60 * 60;
+
+        return ($expirationTimestamp - $currentTimestamp) <= $secondsInThreeDays;
     }
 
-    private function sendNotification($website)
+    public static function sendNotification($website)
     {
-        $this->info("Website {$website->url} sắp đến hạn tên miền hoặc hosting.");
+        $user = $website->user;
+        if ($user && $user->email) {
+            try {
+
+                $emailBody = "Website: $website->url\n";
+                if (self::isExpiringSoon($website->domain_date_expried)) {
+                    $emailBody .= "Domain expiration date: $website->domain_date_expried (Domain is expiring soon)\n";
+                }
+                if (self::isExpiringSoon($website->hosting_date_expried)) {
+                    $emailBody .= "Hosting registration date: $website->hosting_date_register\n";
+                    $emailBody .= "Hosting expiration date: $website->hosting_date_expried (Hosting is expiring soon)\n";
+                }
+
+                Mail::raw($emailBody, function ($message) use ($user) {
+                    $message->to($user->email)->subject('Website Expiration Notification');
+                });
+            } catch (\Exception $e) {
+                \Log::error('Failed to send notification: ' . $e->getMessage());
+            }
+        } else {
+            \Log::warning('User has no email or user not found for website: ' . $website->url);
+        }
     }
 }
