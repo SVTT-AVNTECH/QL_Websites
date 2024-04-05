@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Console;
+namespace Modules\AvnWebsite\App\Console;
 
-use Illuminate\Console;
+use Illuminate\Console\Command;
 use Modules\AvnWebsite\App\Models\AvnWebsites;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class CheckDomainAndHostingExpiration extends Command
 {
+    protected $signature = 'website:check-expiration';
     public static function handle()
     {
         $websites = AvnWebsites::with('user')->get();
@@ -36,13 +37,14 @@ class CheckDomainAndHostingExpiration extends Command
             try {
 
                 $emailBody = "Website: $website->url\n";
-                if (self::isExpiringSoon($website->domain_date_expried)) {
+                if ($website->domain_date_expried !== null && self::isExpiringSoon($website->domain_date_expried)) {
                     $emailBody .= "Domain expiration date: $website->domain_date_expried (Domain is expiring soon)\n";
                 }
-                if (self::isExpiringSoon($website->hosting_date_expried)) {
-                    $emailBody .= "Hosting registration date: $website->hosting_date_register\n";
+
+                if ($website->hosting_date_expried !== null && self::isExpiringSoon($website->hosting_date_expried)) {
                     $emailBody .= "Hosting expiration date: $website->hosting_date_expried (Hosting is expiring soon)\n";
                 }
+
 
                 Mail::raw($emailBody, function ($message) use ($user) {
                     $message->to($user->email)->subject('Website Expiration Notification');
