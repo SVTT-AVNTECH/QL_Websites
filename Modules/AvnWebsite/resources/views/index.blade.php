@@ -1,5 +1,7 @@
 @extends('avnwebsite::layouts.master')
-
+@php
+    use Carbon\Carbon;
+@endphp
 <x-app-layout>
 
     <x-slot name="header">
@@ -117,17 +119,17 @@
                                                 : null;
                                         @endphp
                                         <tr data-id="{{ $website->id }}">
-                                            <td class="url border">
+                                            <td class="url text-center border">
                                                 {{ $website->url }}
                                             </td>
                                             <td class="domain_date_register border">
-                                                {{ $website->domain_date_register }}
+                                                {{ (new Carbon($website->domain_date_register))->format('d/m/Y') }}
                                             </td>
                                             <td class="domain_date_expried border">
-                                                {{ $website->domain_date_expried }}
+                                                {{ (new Carbon($website->domain_date_expried))->format('d/m/Y') }}
                                             </td>
                                             <td class="border">
-                                                {{ $domain_cost ? $domain_cost->date : '' }}
+                                                {{ (new Carbon($domain_cost ? $domain_cost->date : ''))->format('d/m/Y') }}
                                             </td>
                                             <td class="border">
                                                 {{ $domain_cost ? $domain_cost->title : '' }}
@@ -138,9 +140,9 @@
                                             <td class="url border">{{ $website->domain_info }}</td>
                                             <td class="domain_date_register border">
                                                 {{ $website->hosting_date_register }}</td>
-                                            <td class="domain_date_expried border">{{ $website->hosting_date_expried }}
+                                            <td class="domain_date_expried border">{{ (new Carbon($website->hosting_date_expried))->format('d/m/Y') }}
                                             </td>
-                                            <td class="border">{{ $hosting_cost ? $hosting_cost->date : '' }}</td>
+                                            <td class="border">{{ (new Carbon($hosting_cost ? $hosting_cost->date : ''))->format('d/m/Y') }}</td>
                                             <td class="border">{{ $hosting_cost ? $hosting_cost->title : '' }}</td>
                                             <td class="border">
                                                 {{ $hosting_cost ? number_format($hosting_cost->price, 0, ',', '.') . ' VNĐ' : '' }}
