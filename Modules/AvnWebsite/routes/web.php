@@ -21,7 +21,7 @@ use Modules\AvnWebsite\App\Http\Controllers\AvnWebsiteController;
 // Route::get('/g', function () {
 //     return view('avnwebsite::index');
 // });
-Route::prefix('website')->middleware('auth')->group(function () {
+Route::prefix('website')->group(function () {
     Route::get('/', [AvnWebsiteController::class, 'index'])->name('AvnWebsite.index');
     Route::get('/create', [AvnWebsiteController::class, 'create'])->name('AvnWebsite.create');
     Route::post('/insert', [AvnWebsiteController::class, 'insert'])->name('AvnWebsite.insert');

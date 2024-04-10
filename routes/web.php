@@ -19,28 +19,19 @@ use App\Models\User;
 */
 
 Route::get('/', function () {
-
-    // $user = Auth::user();
-    // $message = "Xsmax";
-    // $result = Telegram::sendMessage([
-    //     'chat_id' => $user->tele_id,
-    //     'text' => $message
-    // ]);
-
     return view('welcome');
 });
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
+Route::get('/some-route', [ProfileController::class, 'someAction'])->name('profile.someAction');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('/insert_tele', [ProfileController::class, 'insert_tele'])->name('profile.insert_tele');
     Route::post('/delete_tele', [ProfileController::class, 'delete_tele'])->name('profile.delete_tele');
-
 });
 
 Route::get('redirect/{driver}', [AuthenticatedSessionController::class, 'redirectToProvider'])

@@ -17,14 +17,22 @@ class AvnWebsiteController extends Controller
 {
     /**
      * Display a listing of the resource.
-     */
+     */public function someAction(Request $request)
+    {
+
+    }
     public function index()
     {
-        // $checkWebsiteStatus = new CheckWebsiteStatus();
-        // $checkWebsiteStatus->notifyError(400, 'aaaaaaaaaaaaa');
-        $websites = AvnWebsites::get();
-
-        return view('avnwebsite::index', ['websites' => $websites]);
+        $user = Auth::user();
+        if ($user->hasRole('admin')) {
+            $websites = AvnWebsites::get();
+            return view('avnwebsite::index', ['websites' => $websites]);
+        } elseif ($user->hasRole('user')) {
+            $websites = AvnWebsites::where('user_id', $user->id)->get();
+            return view('avnwebsite::index', ['websites' => $websites]);
+        } else {
+            return view('dashboard');
+        }
     }
 
     /**
