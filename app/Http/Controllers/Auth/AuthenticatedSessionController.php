@@ -48,11 +48,17 @@ class AuthenticatedSessionController extends Controller
         return redirect('/');
     }
 
+    /**
+     * Redirect the user to the provider authentication page.
+     */
     public function redirectToProvider($driver)
     {
         return Socialite::driver($driver)->redirect();
     }
 
+    /**
+     * Obtain the user information from the provider.
+     */
     public function handleProviderCallback($driver)
     {
         try {
@@ -62,12 +68,18 @@ class AuthenticatedSessionController extends Controller
         }
 
         if (!$user->getEmail()) {
-            return redirect()->route('register')->withErrors(['email' => 'Email is invalid!']);
+            return redirect()->route('login')->withErrors(['email' => 'Email is invalid!']);
         }
 
         $existingUser = User::where('email', $user->getEmail())->first();
 
         if ($existingUser) {
+            if (!$existingUser->hasVerifiedEmail()) {
+
+                $existingUser->sendEmailVerificationNotification();
+
+                return redirect()->route('verification.notice')->with('email', $user->getEmail());
+            }
             auth()->login($existingUser, true);
         } else {
             $newUser = new User;
@@ -79,9 +91,8 @@ class AuthenticatedSessionController extends Controller
             $newUser->save();
 
             auth()->login($newUser, true);
+            return redirect()->intended(RouteServiceProvider::HOME);
         }
-
-        return redirect()->intended(RouteServiceProvider::HOME);
     }
 
     public function gitCallback($driver)
@@ -99,6 +110,12 @@ class AuthenticatedSessionController extends Controller
         $existingUser = User::where('email', $user->getEmail())->first();
 
         if ($existingUser) {
+            if (!$existingUser->hasVerifiedEmail()) {
+
+                $existingUser->sendEmailVerificationNotification();
+
+                return redirect()->route('verification.notice')->with('email', $user->getEmail());
+            }
             auth()->login($existingUser, true);
         } else {
             $newUser = new User;
@@ -110,6 +127,7 @@ class AuthenticatedSessionController extends Controller
             $newUser->save();
 
             auth()->login($newUser, true);
+            return redirect()->intended(RouteServiceProvider::HOME);
         }
 
         return redirect()->intended(RouteServiceProvider::HOME);
@@ -130,21 +148,26 @@ class AuthenticatedSessionController extends Controller
         $existingUser = User::where('email', $user->getEmail())->first();
 
         if ($existingUser) {
+            if (!$existingUser->hasVerifiedEmail()) {
+
+                $existingUser->sendEmailVerificationNotification();
+
+                return redirect()->route('verification.notice')->with('email', $user->getEmail());
+            }
             auth()->login($existingUser, true);
         } else {
             $newUser = new User;
-            $newUser->name = $user->getEmail();
+            $newUser->name = $user->getName();
             $newUser->email = $user->getEmail();
             $newUser->email_verified_at = now();
             $newUser->avatar = $user->getAvatar();
             $newUser->password = bcrypt(bin2hex(random_bytes(8)));
             $newUser->save();
 
-            $newUser->createToken('YourAppName')->accessToken;
             auth()->login($newUser, true);
+            return redirect()->intended(RouteServiceProvider::HOME);
         }
 
         return redirect()->intended(RouteServiceProvider::HOME);
     }
-
 }

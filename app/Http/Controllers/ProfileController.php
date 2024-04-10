@@ -7,7 +7,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 
 class ProfileController extends Controller
@@ -27,6 +26,10 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
+        if (!$request->user()->hasVerifiedEmail()) {
+            return Redirect::back()->with('error', 'Bạn cần xác minh email trước khi thực hiện thao tác này.');
+        }
+
         $request->user()->fill($request->validated());
 
         if ($request->user()->isDirty('email')) {
@@ -43,6 +46,10 @@ class ProfileController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
+        if (!$request->user()->hasVerifiedEmail()) {
+            return Redirect::back()->with('error', 'Bạn cần xác minh email trước khi thực hiện thao tác này.');
+        }
+
         $request->validateWithBag('userDeletion', [
             'password' => ['required', 'current_password'],
         ]);
@@ -53,6 +60,7 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
         return Redirect::to('/');
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -89,4 +97,3 @@ class ProfileController extends Controller
         return $user;
     }
 }
-
