@@ -11,7 +11,7 @@ use App\Traits\HasPermissions;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable,HasPermissions;
+    use HasApiTokens, HasFactory, Notifiable, HasPermissions;
 
     /**
      * The attributes that are mass assignable.

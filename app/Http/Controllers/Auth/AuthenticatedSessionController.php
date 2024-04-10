@@ -52,6 +52,7 @@ class AuthenticatedSessionController extends Controller
     {
         return Socialite::driver($driver)->redirect();
     }
+
     public function handleProviderCallback($driver)
     {
         try {
@@ -74,6 +75,7 @@ class AuthenticatedSessionController extends Controller
             $newUser->email = $user->getEmail();
             $newUser->email_verified_at = now();
             $newUser->avatar = $user->getAvatar();
+            $newUser->password = bcrypt(bin2hex(random_bytes(8)));
             $newUser->save();
 
             auth()->login($newUser, true);
@@ -104,6 +106,7 @@ class AuthenticatedSessionController extends Controller
             $newUser->email = $user->getEmail();
             $newUser->email_verified_at = now();
             $newUser->avatar = $user->getAvatar();
+            $newUser->password = bcrypt(bin2hex(random_bytes(8)));
             $newUser->save();
 
             auth()->login($newUser, true);
@@ -134,9 +137,9 @@ class AuthenticatedSessionController extends Controller
             $newUser->email = $user->getEmail();
             $newUser->email_verified_at = now();
             $newUser->avatar = $user->getAvatar();
+            $newUser->password = bcrypt(bin2hex(random_bytes(8)));
             $newUser->save();
 
-            // Create token for new user
             $newUser->createToken('YourAppName')->accessToken;
             auth()->login($newUser, true);
         }

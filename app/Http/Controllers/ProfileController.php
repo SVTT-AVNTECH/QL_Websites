@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 
 class ProfileController extends Controller
@@ -14,10 +15,8 @@ class ProfileController extends Controller
     /**
      * Display the user's profile form.
      */
-
     public function edit(Request $request): View
     {
-
         return view('profile.edit', [
             'user' => $request->user(),
         ]);
@@ -55,6 +54,21 @@ class ProfileController extends Controller
         return Redirect::to('/');
     }
 
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request): RedirectResponse
+    {
+        // Check if user has verified their email
+        if (!$request->user()->hasVerifiedEmail()) {
+            return Redirect::back()->with('error', 'Bạn cần xác minh email trước khi thực hiện thao tác này.');
+        }
+
+        // Your logic for storing user data goes here
+
+        return Redirect::route('dashboard')->with('success', 'Tài khoản của bạn đã được tạo.');
+    }
+
     public function insert_tele(Request $request)
     {
         $user = Auth::user();
@@ -74,5 +88,5 @@ class ProfileController extends Controller
         $user->save();
         return $user;
     }
-
 }
+

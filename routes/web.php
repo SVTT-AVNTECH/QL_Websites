@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Models\User;
+use App\Http\Controllers\Auth\RegisteredUserController;
 
 
 /*
@@ -22,11 +23,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-Route::middleware('auth')->group(function () {
-Route::get('/some-route', [ProfileController::class, 'someAction'])->name('profile.someAction');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+    Route::get('/some-route', [ProfileController::class, 'someAction'])->name('profile.someAction');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -36,7 +38,6 @@ Route::get('/some-route', [ProfileController::class, 'someAction'])->name('profi
 
 Route::get('redirect/{driver}', [AuthenticatedSessionController::class, 'redirectToProvider'])
     ->name('login.redirect');
-// ->where('driver', implode('|', config('auth.socialite.drivers')));
 
 Route::get('callback/{driver}', [AuthenticatedSessionController::class, 'handleProviderCallback'])
     ->name('login.callback');
@@ -50,17 +51,16 @@ Route::get('/email/verify', function () {
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
-
     return redirect('/home');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
-
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
+Route::get('/register', [RegisteredUserController::class, 'create'])->middleware('guest')->name('register');
 
-
+Route::post('/register', [RegisteredUserController::class, 'store'])->middleware(['guest', 'verified'])->name('register.store');
 
 require __DIR__ . '/auth.php';
