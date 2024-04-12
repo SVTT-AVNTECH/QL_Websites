@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class CheckRole
 {
@@ -25,7 +26,6 @@ class CheckRole
                 return redirect()->route('dashboard')->with('error', 'You do not have permission to edit websites.');
             }
         }
-
         // Nếu người dùng chưa đăng nhập, chuyển hướng hoặc trả về lỗi
         return redirect()->route('login')->with('error', 'You must be logged in to edit websites.');
     }

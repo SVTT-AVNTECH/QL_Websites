@@ -10,6 +10,7 @@ use Modules\AvnWebsite\App\Models\AvnWebsites;
 use Modules\AvnWebsite\App\Models\AvnWebsiteCost;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Post;
 // use Modules\AvnWebsite\App\Console\CheckWebsiteStatus;
 // use Utilities\Telegram;
 
@@ -17,21 +18,23 @@ class AvnWebsiteController extends Controller
 {
     /**
      * Display a listing of the resource.
-     */public function someAction(Request $request)
-    {
+     */
 
-    }
+    //  public function __construct()
+    // {
+    //     $this->middleware('auth'); // Ensure the user is authenticated
+    // }
+
     public function index()
     {
         $user = Auth::user();
+
         if ($user->hasRole('admin')) {
             $websites = AvnWebsites::get();
             return view('avnwebsite::index', ['websites' => $websites]);
-        } elseif ($user->hasRole('user')) {
+        } else {
             $websites = AvnWebsites::where('user_id', $user->id)->get();
             return view('avnwebsite::index', ['websites' => $websites]);
-        } else {
-            return view('dashboard');
         }
     }
 

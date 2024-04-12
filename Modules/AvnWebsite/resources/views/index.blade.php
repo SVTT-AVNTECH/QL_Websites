@@ -16,16 +16,31 @@
                 <div class="p-6 text-gray-900">
                     <h1 class="text-center font-bold text-xl">index</h1>
                     <div class="flex justify-end">
-                        <button
-                            class="bg-green-500 hover:bg-green-700 text-white flex items-center w-32 px-4 py-2 rounded-md mb-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20"
-                                fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm1 5a1 1 0 011-1h6a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1v-2zm10-1a1 1 0 00-1-1h-3V5a1 1 0 00-2 0v2H5a1 1 0 00-1 1v7a1 1 0 001 1h2v2a1 1 0 002 0v-2h6v2a1 1 0 002 0v-2h2a1 1 0 001-1V9zm-5 4h2v2h-2v-2z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            <a href="{{ url('website/create') }}">Insert</a>
-                        </button>
+                        @if (Auth::user()->hasRole('user'))
+                            @can('create', Post::class)
+                                <button
+                                    class="bg-green-500 hover:bg-green-700 text-white flex items-center w-32 px-4 py-2 rounded-md mb-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20"
+                                        fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm1 5a1 1 0 011-1h6a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1v-2zm10-1a1 1 0 00-1-1h-3V5a1 1 0 00-2 0v2H5a1 1 0 00-1 1v7a1 1 0 001 1h2v2a1 1 0 002 0v-2h6v2a1 1 0 002 0v-2h2a1 1 0 001-1V9zm-5 4h2v2h-2v-2z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    <a href="{{ url('website/create') }}">Insert</a>
+                                </button>
+                            @endcan
+                        @else
+                            <button
+                                class="bg-green-500 hover:bg-green-700 text-white flex items-center w-32 px-4 py-2 rounded-md mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20"
+                                    fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm1 5a1 1 0 011-1h6a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1v-2zm10-1a1 1 0 00-1-1h-3V5a1 1 0 00-2 0v2H5a1 1 0 00-1 1v7a1 1 0 001 1h2v2a1 1 0 002 0v-2h6v2a1 1 0 002 0v-2h2a1 1 0 001-1V9zm-5 4h2v2h-2v-2z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                <a href="{{ url('website/create') }}">Insert</a>
+                            </button>
+                        @endif
                     </div>
 
 
@@ -140,9 +155,12 @@
                                             <td class="url border">{{ $website->domain_info }}</td>
                                             <td class="domain_date_register border">
                                                 {{ $website->hosting_date_register }}</td>
-                                            <td class="domain_date_expried border">{{ (new Carbon($website->hosting_date_expried))->format('d/m/Y') }}
+                                            <td class="domain_date_expried border">
+                                                {{ (new Carbon($website->hosting_date_expried))->format('d/m/Y') }}
                                             </td>
-                                            <td class="border">{{ (new Carbon($hosting_cost ? $hosting_cost->date : ''))->format('d/m/Y') }}</td>
+                                            <td class="border">
+                                                {{ (new Carbon($hosting_cost ? $hosting_cost->date : ''))->format('d/m/Y') }}
+                                            </td>
                                             <td class="border">{{ $hosting_cost ? $hosting_cost->title : '' }}</td>
                                             <td class="border">
                                                 {{ $hosting_cost ? number_format($hosting_cost->price, 0, ',', '.') . ' VNĐ' : '' }}
@@ -151,39 +169,76 @@
                                             <td class="url border">{{ $website->note }}</td>
 
                                             <td class="url">
-                                                <button
-                                                    class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold text-sm  w-32 rounded">
-                                                    <a
-                                                        href="{{ route('AvnWebsite.edit', ['id' => $website->id]) }}">Edit</a>
-                                                </button>
-                                                <br>
+                                                @if (Auth::user()->hasRole('user'))
+                                                    @can('create', Post::class)
+                                                        <button
+                                                            class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold text-sm  w-32 rounded">
+                                                            <a
+                                                                href="{{ route('AvnWebsite.edit', ['id' => $website->id]) }}">Edit</a>
+                                                        </button>
+                                                        <br>
+                                                    @endcan
+                                                @else
+                                                    <button
+                                                        class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold text-sm  w-32 rounded">
+                                                        <a
+                                                            href="{{ route('AvnWebsite.edit', ['id' => $website->id]) }}">Edit</a>
+                                                    </button>
+                                                @endif
                                                 <button
                                                     class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold text-sm  w-32 rounded">
                                                     <a href="{{ route('AvnWebsite.view', ['id' => $website->id]) }}">Xem
                                                         chi tiết</a>
                                                 </button>
                                                 <br>
-                                                <button
-                                                    class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold text-sm  w-32 rounded">
-                                                    <a
-                                                        href="{{ route('AvnWebsite.create_price', ['id' => $website->id]) }}">Cập
-                                                        nhật chi phí</a>
-                                                </button>
+                                                @if (Auth::user()->hasRole('user'))
+                                                    @can('create', Post::class)
+                                                        <button
+                                                            class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold text-sm  w-32 rounded">
+                                                            <a
+                                                                href="{{ route('AvnWebsite.create_price', ['id' => $website->id]) }}">Cập
+                                                                nhật chi phí</a>
+                                                        </button>
 
+                                                        <form
+                                                            action="{{ route('AvnWebsite.delete', ['id' => $website->id]) }}"
+                                                            method="post">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <button type="submit"
+                                                                class="inline-block bg-red-600 hover:bg-red-400 text-white font-bold text-sm  w-32 rounded">delete</button>
+                                                        </form>
+                                                </td>
+                                            @endcan
+                                        @else
+                                        <button onclick="window.location='{{ route('AvnWebsite.create_price', ['id' => $website->id]) }}'"
+                                            class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold text-sm w-32 rounded">
+                                            Cập nhật chi phí
+                                        </button>
 
-                                                <form action="{{ route('AvnWebsite.delete', ['id' => $website->id]) }}"
-                                                    method="post">
-                                                    @csrf
-                                                    @method('delete')
-                                                    <button type="submit"
-                                                        class="inline-block bg-red-600 hover:bg-red-400 text-white font-bold text-sm  w-32 rounded">delete</button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @endfor
+                                            <form id="deleteForm" action="{{ route('AvnWebsite.delete', ['id' => $website->id]) }}"
+                                                method="post">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="button" onclick="confirmDelete()"
+                                                    class="inline-block bg-red-600 hover:bg-red-400 text-white font-bold text-sm  w-32 rounded">delete</button>
+                                            </form>
+
+                                    @endif
+                                    </tr>
+                                @endfor
                                 @endforeach
                             </tbody>
                         </table>
+
+                        <script>
+                            function confirmDelete() {
+                                if (confirm("Are you sure you want to delete?")) {
+                                    document.getElementById('deleteForm').submit();
+                                }
+                            }
+                        </script>
+
                         <script>
                             document.querySelectorAll('[data-id]').forEach(function(element) {
                                 var dataId = element.getAttribute('data-id');
