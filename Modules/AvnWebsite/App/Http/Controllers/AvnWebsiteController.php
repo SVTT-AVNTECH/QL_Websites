@@ -28,7 +28,6 @@ class AvnWebsiteController extends Controller
     public function index()
     {
         $user = Auth::user();
-
         if ($user->hasRole('admin')) {
             $websites = AvnWebsites::get();
             return view('avnwebsite::index', ['websites' => $websites]);

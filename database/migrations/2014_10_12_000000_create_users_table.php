@@ -20,7 +20,8 @@ return new class extends Migration
             $table->string('avatar')->nullable();
             $table->string('tele_id')->nullable();
             $table->string('tele_name')->nullable();
-            $table->string('tele_avatar')->nullable();
+            $table->string('address')->nullable();
+            $table->string('phone')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
