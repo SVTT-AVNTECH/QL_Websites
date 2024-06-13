@@ -44,16 +44,15 @@
             </x-primary-button>
         </div>
         <div class="mt-4 space-y-2">
-
-            <a class="inline-flex w-full items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25" href="{{ route('login.redirect', 'google') }}"
-            class="btn btn-secondary">
-            {{ __('Google Sign in') }}
+            <a href="{{ route('register') }}" class="inline-flex justify-center items-center w-full px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:border-indigo-700 focus:ring ring-indigo-300 disabled:opacity-25 transition ease-in-out duration-150">
+                <span>{{ __('Register') }}</span>
             </a>
 
-            <a class="inline-flex w-full items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25"  href="{{ route('login.redirect', 'github') }}">
-                {{ __('Github Sign in') }}
-            </a>
-
+            {{-- <a href="{{ route('login.redirect', 'google') }}" class="inline-flex w-full justify-center items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest bg-red-500 hover:bg-red-600 focus:outline-none focus:border-red-700 focus:ring ring-red-300 disabled:opacity-25 transition ease-in-out duration-150">
+                <span>{{ __('Google Sign in') }}</span>
+            </a> --}}
         </div>
+
+
     </form>
 </x-guest-layout>

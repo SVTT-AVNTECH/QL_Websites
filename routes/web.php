@@ -7,49 +7,111 @@ use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Models\User;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\UsersController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/',[UsersController::class,'welcome']);
+
+Route::get('/single-product', function () {
+    return view('single-product');
 });
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-
-    Route::get('/some-route', [ProfileController::class, 'someAction'])->name('profile.someAction');
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::post('/insert_tele', [ProfileController::class, 'insert_tele'])->name('profile.insert_tele');
-    Route::post('/delete_tele', [ProfileController::class, 'delete_tele'])->name('profile.delete_tele');
+Route::get('/contact', function () {
+    return view('contact');
 });
 
-Route::get('redirect/{driver}', [AuthenticatedSessionController::class, 'redirectToProvider'])
-    ->name('login.redirect');
+Route::get('/about', function () {
+    return view('about');
+});
 
-Route::get('callback/{driver}', [AuthenticatedSessionController::class, 'handleProviderCallback'])
-    ->name('login.callback');
+Route::get('/products', [ProductController::class, 'index'])->name('products');
+Route::get('/products/paginate', [ProductController::class, 'paginate'])->name('paginate');
+// Route::get('/single-product/{id}', [ProductController::class, 'show'])->name('single-product');
+Route::get('/product/{id}/detail', [ProductController::class, 'getProductDetail'])->name('product.detail');
 
-Route::get('callback/{driver}', [AuthenticatedSessionController::class, 'gitCallback'])
-    ->name('login.callback');
+// Route::middleware(['auth', 'verified'])->group(function () {
+//     Route::get('/dashboard', function () {
+//         return view('dashboard');
+//     })->name('dashboard');
+//     Route::get('/some-route', [ProfileController::class, 'someAction'])->name('profile.someAction');
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+//     Route::post('/insert_tele', [ProfileController::class, 'insert_tele'])->name('profile.insert_tele');
+//     Route::post('/delete_tele', [ProfileController::class, 'delete_tele'])->name('profile.delete_tele');
+// });
 
-Route::get('/email/verify', function () {
-    return view('auth.verify-email');
-})->middleware('auth')->name('verification.notice');
+Route::middleware(['auth'])->group(function () {
+        Route::get('/dashboard', function () {
+            return view('dashboard');
+        })->name('dashboard');
+        Route::get('/some-route', [ProfileController::class, 'someAction'])->name('profile.someAction');
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+        Route::post('/insert_tele', [ProfileController::class, 'insert_tele'])->name('profile.insert_tele');
+        Route::post('/delete_tele', [ProfileController::class, 'delete_tele'])->name('profile.delete_tele');
+    });
 
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
-    return redirect('/home');
-})->middleware(['auth', 'signed'])->name('verification.verify');
+Route::get('/search', [ProductController::class, 'search'])->name('products.search');
+Route::get('/products/sort', [ProductController::class, 'sort'])->name('products.sort');
 
-Route::post('/email/verification-notification', function (Request $request) {
-    $request->user()->sendEmailVerificationNotification();
-    return back()->with('message', 'Verification link sent!');
-})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+Route::prefix('editor')->middleware('auth')->group(function () {
+    Route::get('/', [UsersController::class, 'index'])->name('index');
+    Route::get('/products/list', [ProductController::class, 'list'])->name('list');
+    Route::get('/products/order', [UsersController::class, 'order'])->name('order');
+    Route::get('/category/list', [CategoryController::class, 'list'])->name('category/list');
 
-Route::get('/register', [RegisteredUserController::class, 'create'])->middleware('guest')->name('register');
+    Route::get('category/create_category', [CategoryController::class, 'create_category'])->name('create_category');
+    Route::post('category/insert_category', [CategoryController::class, 'insert_category'])->name('insert_category');
+    Route::get('/create_product', [ProductController::class, 'create_product'])->name('create_product');
+    Route::post('/store', [ProductController::class, 'store'])->name('store');
 
-Route::post('/register', [RegisteredUserController::class, 'store'])->middleware(['guest', 'verified'])->name('register.store');
+    Route::get('/edit_category/{id}', [CategoryController::class, 'edit_category'])->name('edit_category');
+    Route::put('update_category/{id}', [CategoryController::class, 'update_category'])->name('update_category');
+    Route::get('/edit/{id}', [UsersController::class, 'edit'])->name('edit');
+    Route::put('update/{id}', [UsersController::class, 'update'])->name('update');
+    Route::get('/edit_product/{id}', [ProductController::class, 'edit_product'])->name('edit_product');
+    Route::put('update_product/{id}', [ProductController::class, 'update_product'])->name('update_product');
+
+    Route::delete('/category/delete_category/{id}', [CategoryController::class, 'delete_category'])->name('delete_category');
+    Route::delete('/delete/{id}', [UsersController::class, 'delete_user'])->name('delete');
+    Route::delete('/products/delete/{id}', [ProductController::class, 'delete_product'])->name('products.delete');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+    Route::post('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+    Route::post('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
+    Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
+    Route::post('/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
+});
+
+// Route::get('redirect/{driver}', [AuthenticatedSessionController::class, 'redirectToProvider'])
+//     ->name('login.redirect');
+
+// Route::get('callback/{driver}', [AuthenticatedSessionController::class, 'handleProviderCallback'])
+//     ->name('login.callback');
+
+
+// Route::get('/email/verify', function () {
+//     return view('auth.verify-email');
+// })->middleware('auth')->name('verification.notice');
+
+// Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+//     $request->fulfill();
+//     return redirect('/home');
+// })->middleware(['auth', 'signed'])->name('verification.verify');
+
+// Route::post('/email/verification-notification', function (Request $request) {
+//     $request->user()->sendEmailVerificationNotification();
+//     return back()->with('message', 'Verification link sent!');
+// })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+// Route::get('/register', [RegisteredUserController::class, 'create'])->middleware('guest')->name('register');
+
+// Route::post('/register', [RegisteredUserController::class, 'store'])->middleware(['guest', 'verified'])->name('register.store');
 
 require __DIR__ . '/auth.php';
