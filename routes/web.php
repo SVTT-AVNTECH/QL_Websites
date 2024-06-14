@@ -25,6 +25,52 @@ Route::get('/contact', function () {
 Route::get('/about', function () {
     return view('about');
 });
+Route::get('/single-product', function () {
+    return view('single-product');
+});
+Route::get('/contact', function () {
+    return view('contact');
+});
+Route::get('/about', function () {
+    return view('about');
+});
+Route::get('/products', function () {
+    return view('products');
+});
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+    Route::get('/some-route', [ProfileController::class, 'someAction'])->name('profile.someAction');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::post('/insert_tele', [ProfileController::class, 'insert_tele'])->name('profile.insert_tele');
+    Route::post('/delete_tele', [ProfileController::class, 'delete_tele'])->name('profile.delete_tele');
+});
+
+// Route::prefix('editor')->middleware('auth')->group(function () {
+//     Route::get('/', [UsersController::class, 'index'])->name('index');
+//     Route::get('/products/list', [UsersController::class, 'list'])->name('list');
+//     Route::get('/products/order', [UsersController::class, 'order'])->name('order');
+
+//     Route::get('/create_category', [UsersController::class, 'create_category'])->name('create_category');
+//     Route::post('/insert_category', [UsersController::class, 'insert_category'])->name('insert_category');
+//     Route::get('/create_product', [UsersController::class, 'create_product'])->name('create_product');
+//     Route::post('/store', [UsersController::class, 'store'])->name('store');
+
+//     Route::get('/edit/{id}', [UsersController::class, 'edit'])->name('edit');
+//     Route::put('update/{id}', [UsersController::class, 'update'])->name('update');
+    // Route::delete('/delete/{id}', [UsersController::class, 'delete'])->name('AvnWebsite.delete');
+    // Route::get('/view/{id}', [UsersController::class, 'view'])->name('AvnWebsite.view');
+    // Route::get('create_price/{id}', [UsersController::class, 'create_price'])->name('AvnWebsite.create_price');
+    // Route::post('/insert_price/{id}', [UsersController::class, 'insert_price'])->name('AvnWebsite.insert_price');
+// });
+
+
+
+Route::get('redirect/{driver}', [AuthenticatedSessionController::class, 'redirectToProvider'])
+    ->name('login.redirect');
 
 Route::get('/products', [ProductController::class, 'index'])->name('products');
 Route::get('/products/paginate', [ProductController::class, 'paginate'])->name('paginate');
